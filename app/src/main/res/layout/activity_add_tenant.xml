@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Add Tenant"/>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_top">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+                <TableRow android:layout_marginTop="10dp">
+<ProgressBar
+                android:id="@+id/tenantaddprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Tenant Type:" />
+
+                        <Spinner
+                            android:id="@+id/spnTenantTypeAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Property:" />
+
+                        <Spinner
+                            android:id="@+id/spnTenantPAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Property Unit:" />
+
+                        <Spinner
+                            android:id="@+id/spnTenantPUAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Unit Rent:" />
+
+                        <EditText
+                            android:id="@+id/etTenantUNAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Water Bill:" />
+
+                        <EditText
+                            android:id="@+id/ettenantWaterAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Electric Bill:" />
+
+                        <EditText
+                            android:id="@+id/ettenantElecAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Service Fee:" />
+
+                        <EditText
+                            android:id="@+id/etTenantSAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="ID/Passport:" />
+
+                        <EditText
+                            android:id="@+id/etTenantIDAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Names:" />
+
+                        <EditText
+                            android:id="@+id/etTenantNameAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="PIN:" />
+
+                        <EditText
+                            android:id="@+id/etTenantpinAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:inputType="text"
+                            android:singleLine="true"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Tel. No:" />
+
+                        <EditText
+                            android:id="@+id/ettenantTelAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:inputType="phone"
+                            android:singleLine="true"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Address:" />
+
+                        <EditText
+                            android:id="@+id/ettenantAddAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Date From:" />
+
+                        <EditText
+                            android:id="@+id/dteTenantFrmAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="datetime"
+                            android:background="@android:drawable/editbox_dropdown_light_frame"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                   
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Status:" />
+
+                        <Spinner
+                            android:id="@+id/spnTenantStatusAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btTenantsubmit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Save"
+                            android:background="@drawable/mybutton"/>
+
+                        <Button
+                            android:id="@+id/btnTenantclose"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Close"
+                            android:background="@drawable/mybutton"/>
+
+                        <Button
+                            android:id="@+id/btnTenantreset"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Reset"
+                            android:background="@drawable/mybutton"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

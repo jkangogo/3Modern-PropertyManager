@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Holder.Statements">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Statements"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+				<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property:"/>
+                <Spinner
+                    android:id="@+id/spnprty"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unit:"/>
+
+                <Spinner
+                    android:id="@+id/spnunt"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>               
+			   <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tenant:"/>
+                <Spinner
+                    android:id="@+id/spntt"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start:"/>
+
+                <EditText
+                    android:id="@+id/datestt"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End:"/>
+
+                <EditText
+                    android:id="@+id/datend"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Type"/>
+                <Spinner
+                    android:id="@+id/spntype"
+                    android:layout_width="195dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Action:"/>
+                <Spinner
+                    android:id="@+id/spnacton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+		
+		<TableLayout
+		  android:id="@+id/ptable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"  android:stretchColumns="*" android:background="#000000">
+     <TableRow
+                            android:id="@+id/tableRow1"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent">
+                            <TextView
+                                android:id="@+id/sDate" android:text="DATE"
+                                android:layout_weight="1" 
+                                android:textColor="#00FFFF" 
+                                 android:gravity="left"/>
+								
+                          
+                                <TextView
+                                android:id="@+id/stDedc" android:text="DESC."
+                                android:layout_weight="1" 
+                                android:textColor="#00FFFF" 
+                                 android:gravity="center"/>                          
+                             
+								<TextView
+                                android:id="@+id/stAmount" android:text="AMOUNT(Ksh.)"
+                                android:layout_weight="1" 
+                                android:textColor="#00FFFF" 
+                                android:gravity="center"/>
+								
+								<TextView
+                                android:id="@+id/stBalance" android:text="BALANCE(Ksh.)"
+                                android:layout_weight="1" 
+                                android:textColor="#00FFFF" 
+                                android:gravity="right"/>
+                        </TableRow>
+    <ListView
+        android:id="@android:id/list"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+    </ListView>
+     </TableLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

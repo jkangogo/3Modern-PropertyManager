@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Add Unit"/>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_top">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+                <TableRow android:layout_marginTop="10dp">
+				
+				<ProgressBar
+                android:id="@+id/unitaddprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Property:" />
+
+                        <Spinner
+                            android:id="@+id/spnUnitPropertyAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Unit Code:" />
+
+                        <EditText
+                            android:id="@+id/etUnitCodeAdd"
+                            android:layout_width="190dp"
+							android:inputType="none"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Unit Name:" />
+
+                        <EditText
+                            android:id="@+id/etUnitNameAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Unit Desc:" />
+
+                        <EditText
+                            android:id="@+id/etUnitDescAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="text"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+							
+                            android:text="Unit Rent:" />
+
+                        <EditText
+                            android:id="@+id/etUnitRentAdd"
+                            android:layout_width="190dp"
+							android:inputType="number"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Electric Meter:" />
+
+                        <EditText
+                            android:id="@+id/etUnitElectAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="ElecBill Shared?:" />
+
+                        <Spinner
+                            android:id="@+id/spnUnitElectAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Water Meter:" />
+
+                        <EditText
+                            android:id="@+id/etUnitWaterAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"                            
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="WaterBill Shared?:" />
+
+                        <Spinner
+                            android:id="@+id/spnUnitWaterSharedAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Service Fee:" />
+
+                        <EditText
+                            android:id="@+id/etUnitServiceAdd"
+                            android:layout_width="190dp"
+							android:inputType="number"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnUnitsubmit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Save"
+                            android:background="@drawable/mybutton"/>
+
+                        <Button
+                            android:id="@+id/btnUnitclose"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Close"
+                            android:background="@drawable/mybutton"/>
+
+                        <Button
+                            android:id="@+id/btnUnitreset"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Reset"
+                            android:background="@drawable/mybutton"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

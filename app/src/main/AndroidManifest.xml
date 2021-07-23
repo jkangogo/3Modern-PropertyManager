@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kangogo.threepmanager">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/tpmicon"
+        android:label="PManager"
+        android:roundIcon="@drawable/tpmicon"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ThreePManager"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Holder.Expenditure"></activity>
+        <activity android:name=".NewExpenditure" />
+        <activity android:name=".JounalEntry" />
+        <activity android:name=".NewInvoice" />
+        <activity android:name=".DataEntry" />
+        <activity android:name=".Reports" />
+        <activity android:name=".Holder.Statements" />
+        <activity android:name=".Holder.Payments" />
+        <activity android:name=".Holder.Invoices" />
+        <activity android:name=".Holder.Tenancy" />
+        <activity android:name=".Holder.Units" />
+        <activity android:name=".Holder.Property" />
+        <activity android:name=".AddBouncedPay" />
+        <activity android:name=".AddPayment" />
+        <activity android:name=".AddTenant" />
+        <activity android:name=".AddUnit" />
+        <activity android:name=".AddProperty" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ResetPassword" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
