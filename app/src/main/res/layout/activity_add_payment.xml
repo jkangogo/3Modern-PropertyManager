@@ -142,6 +142,7 @@
                         android:layout_height="match_parent"
                         android:inputType="datetime"
                         android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:singleLine="true" />
 
                 </LinearLayout>
@@ -164,6 +165,7 @@
                         android:layout_width="190dp"
                         android:inputType="number"
                         android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:layout_height="match_parent"
                         android:singleLine="true"/>
 
@@ -188,6 +190,7 @@
                         android:layout_width="190dp"
                         android:inputType="text"
                         android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:layout_height="match_parent"
                         android:singleLine="true"/>
 
@@ -212,6 +215,7 @@
                         android:layout_width="190dp"
                         android:inputType="text"
                         android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:layout_height="match_parent"
                         android:singleLine="true"/>
 
