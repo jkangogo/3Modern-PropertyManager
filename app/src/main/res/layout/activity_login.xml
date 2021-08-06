@@ -81,6 +81,7 @@
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:singleLine="true"
+                        android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_login"
                         android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:hint="@string/username"/>
@@ -95,6 +96,7 @@
                         android:layout_marginLeft="30dp"
                         android:padding="10dp"
                         android:singleLine="true"
+                        android:textColor="@color/black"
                         app:passwordToggleEnabled="true"
                         android:drawableEnd="@drawable/ic_pass"
                         android:background="@android:drawable/editbox_dropdown_light_frame"

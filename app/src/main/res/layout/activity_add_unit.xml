@@ -76,6 +76,7 @@
                             android:id="@+id/etUnitCodeAdd"
                             android:layout_width="190dp"
 							android:inputType="none"
+                            android:textColor="@color/black"
                             android:layout_height="match_parent"
                             android:singleLine="true"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
@@ -101,6 +102,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="text"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -126,6 +128,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="text"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -151,6 +154,7 @@
                             android:id="@+id/etUnitRentAdd"
                             android:layout_width="190dp"
 							android:inputType="number"
+                            android:textColor="@color/black"
                             android:layout_height="match_parent"
                             android:singleLine="true"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
@@ -177,6 +181,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="number"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -222,6 +227,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"                            
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="number"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -266,6 +272,7 @@
                             android:id="@+id/etUnitServiceAdd"
                             android:layout_width="190dp"
 							android:inputType="number"
+                            android:textColor="@color/black"
                             android:layout_height="match_parent"
                             android:singleLine="true"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />

@@ -72,6 +72,7 @@
                             <TextView
                                 android:layout_width="115dp"
                                 android:layout_height="match_parent"
+                                android:textColor="@color/black"
                                 android:text="ID/Passport:" />
 
                             <EditText
@@ -79,6 +80,7 @@
                                 android:layout_width="225dp"
                                 android:layout_height="match_parent"
                                 android:inputType="text"
+                                android:textColor="@color/black"
                                 android:background="@android:drawable/editbox_dropdown_light_frame" />
                         </LinearLayout>
                     </TableRow>
@@ -94,6 +96,7 @@
                             <TextView
                                 android:layout_width="115dp"
                                 android:layout_height="match_parent"
+                                android:textColor="@color/black"
                                 android:text="Telephone No:" />
 
                             <EditText
@@ -101,6 +104,7 @@
                                 android:layout_width="225dp"
                                 android:layout_height="match_parent"
                                 android:inputType="phone"
+                                android:textColor="@color/black"
                                 android:background="@android:drawable/editbox_dropdown_light_frame"/>
                         </LinearLayout>
                     </TableRow>
@@ -115,6 +119,7 @@
                             <TextView
                                 android:layout_width="115dp"
                                 android:layout_height="match_parent"
+                                android:textColor="@color/black"
                                 android:text="Names:" />
 
                             <EditText
@@ -122,6 +127,7 @@
                                 android:layout_width="225dp"
                                 android:layout_height="match_parent"
                                 android:inputType="text"
+                                android:textColor="@color/black"
                                 android:background="@android:drawable/editbox_dropdown_light_frame"/>
                         </LinearLayout>
                     </TableRow>
@@ -137,6 +143,7 @@
                             <TextView
                                 android:layout_width="115dp"
                                 android:layout_height="match_parent"
+                                android:textColor="@color/black"
                                 android:text="Adress:" />
 
                             <EditText
@@ -144,6 +151,7 @@
                                 android:layout_width="225dp"
                                 android:layout_height="match_parent"
                                 android:inputType="text"
+                                android:textColor="@color/black"
                                 android:background="@android:drawable/editbox_dropdown_light_frame"/>
                         </LinearLayout>
                     </TableRow>
@@ -159,6 +167,7 @@
                                 android:id="@+id/ownertypetxt"
                                 android:layout_width="115dp"
                                 android:layout_height="match_parent"
+                                android:textColor="@color/black"
                                 android:text="Owner Type:" />
                             <Spinner
                                 android:id="@+id/ownertype"
