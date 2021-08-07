@@ -79,6 +79,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="text"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -103,6 +104,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
                     </LinearLayout>
@@ -145,6 +147,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:inputType="datetime"
+                            android:textColor="@color/black"
                             android:singleLine="true"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -167,6 +170,7 @@
                             android:id="@+id/etPayAmount"
                             android:layout_width="190dp"
                             android:inputType="number"
+                            android:textColor="@color/black"
                             android:layout_height="match_parent"
                             android:singleLine="true"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
@@ -194,6 +198,7 @@
                             android:inputType="text"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
 
@@ -218,6 +223,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
 

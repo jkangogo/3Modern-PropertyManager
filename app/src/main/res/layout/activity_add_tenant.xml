@@ -119,6 +119,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="number"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -143,6 +144,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="number"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -167,6 +169,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="number"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -192,6 +195,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="number"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -217,6 +221,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="text"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -242,6 +247,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="text"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -266,6 +272,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:inputType="text"
+                            android:textColor="@color/black"
                             android:singleLine="true"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -290,6 +297,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:inputType="phone"
+                            android:textColor="@color/black"
                             android:singleLine="true"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -314,6 +322,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="text"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -338,6 +347,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:singleLine="true"
+                            android:textColor="@color/black"
                             android:inputType="datetime"
                             android:background="@android:drawable/editbox_dropdown_light_frame"/>
 

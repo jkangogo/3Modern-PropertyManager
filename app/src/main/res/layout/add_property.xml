@@ -63,6 +63,7 @@
                             android:id="@+id/etPropertyAdd"
                             android:layout_width="190dp"
 							 android:inputType="none"
+                            android:textColor="@color/black"
                             android:layout_height="match_parent"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -86,6 +87,7 @@
                             android:id="@+id/etPropertyOIDAdd"
                             android:layout_width="190dp"
 							android:inputType="none"
+                            android:textColor="@color/black"
                             android:layout_height="match_parent"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
@@ -111,6 +113,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:inputType="text"
+                            android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
                     </LinearLayout>
@@ -135,6 +138,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:inputType="text"
+                            android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
 
@@ -159,6 +163,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:inputType="phone"
+                            android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
 
@@ -182,6 +187,7 @@
                             android:layout_width="190dp"
                             android:layout_height="match_parent"
                             android:inputType="text"
+                            android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
 

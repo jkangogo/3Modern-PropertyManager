@@ -141,6 +141,8 @@
                         android:layout_width="190dp"
                         android:layout_height="match_parent"
                         android:inputType="datetime"
+                        android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:singleLine="true" />
 
                 </LinearLayout>
@@ -162,6 +164,8 @@
                         android:id="@+id/etPaymentAmountAdd"
                         android:layout_width="190dp"
                         android:inputType="number"
+                        android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:layout_height="match_parent"
                         android:singleLine="true"/>
 
@@ -185,6 +189,8 @@
                         android:id="@+id/etPaympesacodeAdd"
                         android:layout_width="190dp"
                         android:inputType="text"
+                        android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:layout_height="match_parent"
                         android:singleLine="true"/>
 
@@ -208,6 +214,8 @@
                         android:id="@+id/etPayBankrefAdd"
                         android:layout_width="190dp"
                         android:inputType="text"
+                        android:textColor="@color/black"
+                        android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:layout_height="match_parent"
                         android:singleLine="true"/>
 
