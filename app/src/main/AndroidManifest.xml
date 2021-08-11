@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.threemodern.threepmanager">
+    package="com.threemsystems.rentmanager">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -12,27 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThreePManager"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Holder.Expenditure"></activity>
-        <activity android:name=".NewExpenditure" />
-        <activity android:name=".JounalEntry" />
-        <activity android:name=".NewInvoice" />
-        <activity android:name=".DataEntry" />
-        <activity android:name=".Reports" />
-        <activity android:name=".Holder.Statements" />
-        <activity android:name=".Holder.Payments" />
-        <activity android:name=".Holder.Invoices" />
-        <activity android:name=".Holder.Tenancy" />
-        <activity android:name=".Holder.Units" />
-        <activity android:name=".Holder.Property" />
-        <activity android:name=".AddBouncedPay" />
-        <activity android:name=".AddPayment" />
-        <activity android:name=".AddTenant" />
-        <activity android:name=".AddUnit" />
-        <activity android:name=".AddProperty" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ResetPassword" />
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.threemsystems.rentmanager.Holder.MessageActivity" />
+        <activity android:name="com.threemsystems.rentmanager.Holder.Expenditure" />
+        <activity android:name="com.threemsystems.rentmanager.NewExpenditure" />
+        <activity android:name="com.threemsystems.rentmanager.JounalEntry" />
+        <activity android:name="com.threemsystems.rentmanager.NewInvoice" />
+        <activity android:name="com.threemsystems.rentmanager.DataEntry" />
+        <activity android:name="com.threemsystems.rentmanager.Reports" />
+        <activity android:name="com.threemsystems.rentmanager.Holder.Statements" />
+        <activity android:name="com.threemsystems.rentmanager.Holder.Payments" />
+        <activity android:name="com.threemsystems.rentmanager.Holder.Invoices" />
+        <activity android:name="com.threemsystems.rentmanager.Holder.Tenancy" />
+        <activity android:name="com.threemsystems.rentmanager.Holder.Units" />
+        <activity android:name="com.threemsystems.rentmanager.Holder.Property" />
+        <activity android:name="com.threemsystems.rentmanager.AddBouncedPay" />
+        <activity android:name="com.threemsystems.rentmanager.AddPayment" />
+        <activity android:name="com.threemsystems.rentmanager.AddTenant" />
+        <activity android:name="com.threemsystems.rentmanager.AddUnit" />
+        <activity android:name="com.threemsystems.rentmanager.AddProperty" />
+        <activity android:name="com.threemsystems.rentmanager.RegisterActivity" />
+        <activity android:name="com.threemsystems.rentmanager.MainActivity" />
+        <activity android:name="com.threemsystems.rentmanager.ResetPassword" />
+        <activity android:name="com.threemsystems.rentmanager.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

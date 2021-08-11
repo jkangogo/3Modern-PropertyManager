@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Holder.MessageActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Journal Entry"/>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_top">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Select the Tenant(s):" />
+
+                        <Spinner
+                            android:id="@+id/spnRecipient"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Contact(s):" />
+
+                        <EditText
+                            android:id="@+id/etRecipient"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="MESSAGE:" />
+                    </LinearLayout>
+                </TableRow>
+                <TableRow >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/etMessage"
+                            android:inputType="textMultiLine"
+                            android:lines="8"
+                            android:minLines="6"
+                            android:gravity="top|left"
+                            android:maxLines="10"
+                            android:textColor="@color/black"
+                            android:scrollbars="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16sp"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnSend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:background="@drawable/mybutton"
+                            android:text="Send" />
+
+                    </LinearLayout>
+
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

@@ -116,13 +116,28 @@
                         android:padding="10dp"
                         android:text="New Expense" />
                     <Button
-                        android:id="@+id/back"
+                        android:id="@+id/btnMessage"
                         android:layout_width="195dp"
                         android:layout_height="80dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/mybutton"
                         android:padding="10dp"
-                        android:text="Back"/>
+                        android:text="Send a message"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/back"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/mybutton"
+                        android:padding="10dp"
+                        android:text="BACK" />
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

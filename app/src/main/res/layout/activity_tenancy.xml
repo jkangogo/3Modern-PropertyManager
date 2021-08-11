@@ -118,7 +118,7 @@
                     android:gravity="center"/>
 
                 <TextView
-                    android:id="@+id/iAmount" android:text="RENT(Ksh.)"
+                    android:id="@+id/iAmount" android:text="CONTACT"
                     android:layout_weight="1"
                     android:textColor="#00FFFF"
                     android:gravity="right"/>

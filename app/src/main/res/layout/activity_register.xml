@@ -208,7 +208,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:layout_margin="2dp"
-                                android:text="Exit"
+                                android:text="Close"
                                 android:background="@drawable/mybutton"/>
 
                             <Button
@@ -216,7 +216,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="2dp"
-                                android:text="Back"
+                                android:text="Reset"
                                 android:background="@drawable/mybutton"/>
 
                         </LinearLayout>

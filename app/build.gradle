@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.threemodern.threepmanager"
+        applicationId "com.threemsystems.rentmanager"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -20,7 +20,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            crunchPngs false
+            crunchPngs true
 
         }
     }
