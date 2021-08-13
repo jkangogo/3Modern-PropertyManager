@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), DataEntry.class);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Reports.class);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -67,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
 				Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
-                finish();
+                finishAffinity();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

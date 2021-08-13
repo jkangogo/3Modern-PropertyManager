@@ -51,7 +51,6 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent= new Intent(getApplicationContext(), AddProperty.class);
                     startActivity(intent);
-                    finish();
                 }else{
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
@@ -80,7 +79,6 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent = new Intent( getApplicationContext(), AddUnit.class);
                     startActivity(intent);
-                    finish();
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
                     builder.setMessage("You do not have required permission to create new units")
@@ -106,7 +104,6 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent = new Intent(getApplicationContext(), com.threemsystems.rentmanager.AddTenant.class);
                     startActivity(intent);
-                    finish();
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
                     builder.setMessage("You do not have required permission to create new tenant")
@@ -136,7 +133,6 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent = new Intent(getApplicationContext(), AddPayment.class);
                     startActivity(intent);
-                    finish();
 
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
@@ -159,7 +155,6 @@ public class DataEntry extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), NewInvoice.class);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -168,7 +163,6 @@ public class DataEntry extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), JounalEntry.class);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -177,7 +171,6 @@ public class DataEntry extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), NewExpenditure.class);
                 startActivity(i);
-                finish();
             }
         });
 
