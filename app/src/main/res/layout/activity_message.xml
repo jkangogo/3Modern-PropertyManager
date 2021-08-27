@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:text="Journal Entry"/>
+            android:text="3P SMS"/>
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,6 +36,47 @@
                 android:layout_margin="3dp">
                 <TableRow>
 
+				<LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Property:" />
+
+                        <Spinner
+                            android:id="@+id/spnPropertysms"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+					</TableRow>
+					<TableRow>
+					<LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Unit:" />
+
+                        <Spinner
+                            android:id="@+id/spnUnitsms"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+					 </TableRow>
+				
+				<TableRow>
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="40dp"
@@ -45,7 +86,7 @@
                         <TextView
                             android:layout_width="115dp"
                             android:layout_height="match_parent"
-                            android:text="Select the Tenant(s):" />
+                            android:text="Tenant(s):" />
 
                         <Spinner
                             android:id="@+id/spnRecipient"
@@ -55,6 +96,7 @@
 
                     </LinearLayout>
                 </TableRow>
+				
                 <TableRow>
 
                     <LinearLayout
@@ -66,7 +108,7 @@
                         <TextView
                             android:layout_width="115dp"
                             android:layout_height="match_parent"
-                            android:text="Contact(s):" />
+                            android:text="To :" />
 
                         <EditText
                             android:id="@+id/etRecipient"
@@ -74,6 +116,26 @@
                             android:layout_height="match_parent"
                             android:textColor="@color/black"
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+				<TableRow>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="SMS Type:" />
+
+                        <Spinner
+                            android:id="@+id/spMSGtype"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
 
 
                     </LinearLayout>
@@ -134,7 +196,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="2dp"
                             android:background="@drawable/mybutton"
-                            android:text="Send" />
+                            android:text="Send SMS" />
 
                     </LinearLayout>
 
