@@ -10,11 +10,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
 import com.threemsystems.rentmanager.Holder.MessageActivity;
 
 public class DataEntry extends AppCompatActivity {
     Button addProperty, newUnit, newTenant, Payment,newInvoice;
 	Button 	journalEntry, expenditure, back, message,BunitServices;
+<<<<<<< HEAD
+=======
+=======
+public class DataEntry extends AppCompatActivity {
+<<<<<<< HEAD
+    Button addProperty, newUnit, newTenant, Payment,newInvoice;
+	Button 	journalEntry, expenditure, back, message,BunitServices;
+=======
+    Button addProperty, newUnit, newTenant, Payment,newInvoice, journalEntry, expenditure, back, message;
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
     SharedPreferences propertypref;
 
     @Override
@@ -31,8 +47,21 @@ public class DataEntry extends AppCompatActivity {
         expenditure = findViewById(R.id.btnExpenditure);
         back = findViewById(R.id.back);
         message=(Button)findViewById(R.id.btnMessage);
+<<<<<<< HEAD
 		BunitServices=(Button)findViewById(R.id.UnitServices);
 		
+=======
+<<<<<<< HEAD
+		BunitServices=(Button)findViewById(R.id.UnitServices);
+		
+=======
+<<<<<<< HEAD
+		BunitServices=(Button)findViewById(R.id.UnitServices);
+		
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
         propertypref = getSharedPreferences("user_details", MODE_PRIVATE);
         String idNo=propertypref.getString("idNo","MisingID");
 
@@ -54,7 +83,18 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent= new Intent(getApplicationContext(), AddProperty.class);
                     startActivity(intent);
+<<<<<<< HEAD
                     finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
                 }else{
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
@@ -83,7 +123,18 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent = new Intent( getApplicationContext(), AddUnit.class);
                     startActivity(intent);
+<<<<<<< HEAD
                     finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
                     builder.setMessage("You do not have required permission to create new units")
@@ -109,7 +160,18 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent = new Intent(getApplicationContext(), com.threemsystems.rentmanager.AddTenant.class);
                     startActivity(intent);
+<<<<<<< HEAD
                     finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
                     builder.setMessage("You do not have required permission to create new tenant")
@@ -139,7 +201,18 @@ public class DataEntry extends AppCompatActivity {
                 if(ul==9){
                     Intent intent = new Intent(getApplicationContext(), AddPayment.class);
                     startActivity(intent);
+<<<<<<< HEAD
                     finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+<<<<<<< HEAD
+                    finish();
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
 
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(DataEntry.this);
@@ -162,7 +235,18 @@ public class DataEntry extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), NewInvoice.class);
                 startActivity(i);
+<<<<<<< HEAD
                 finish();
+=======
+<<<<<<< HEAD
+                finish();
+=======
+<<<<<<< HEAD
+                finish();
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
             }
         });
 
@@ -171,7 +255,18 @@ public class DataEntry extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), JounalEntry.class);
                 startActivity(i);
+<<<<<<< HEAD
                 finish();
+=======
+<<<<<<< HEAD
+                finish();
+=======
+<<<<<<< HEAD
+                finish();
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
             }
         });
 
@@ -180,6 +275,13 @@ public class DataEntry extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), NewExpenditure.class);
                 startActivity(i);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
                 finish();
             }
         });
@@ -189,6 +291,14 @@ public class DataEntry extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), AddUnitService.class);
                 startActivity(i);
                 finish();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
             }
         });
 

@@ -82,7 +82,18 @@
                         android:layout_marginLeft="30dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
+<<<<<<< HEAD
 						android:text=""
+=======
+<<<<<<< HEAD
+						android:text=""
+=======
+<<<<<<< HEAD
+						android:text=""
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
                         android:drawableEnd="@drawable/ic_login"
                         android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:hint="@string/username"/>
@@ -98,12 +109,34 @@
                         android:padding="10dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
+<<<<<<< HEAD
 						android:text=""
+=======
+<<<<<<< HEAD
+						android:text=""
+=======
+<<<<<<< HEAD
+						android:text=""
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
                         app:passwordToggleEnabled="true"
                         android:drawableEnd="@drawable/ic_pass"
                         android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:inputType="textPassword" />
+<<<<<<< HEAD
 						
+=======
+<<<<<<< HEAD
+						
+=======
+<<<<<<< HEAD
+						
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
+>>>>>>> b2a6c01626f13147a08df95349348756448966af
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
