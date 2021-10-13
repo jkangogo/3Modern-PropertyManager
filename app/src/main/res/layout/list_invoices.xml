@@ -1,0 +1,46 @@
+<LinearLayout
+android:id="@+id/linearTenantInvoices"
+xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			>
+<TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"  
+			android:stretchColumns="*" 
+			android:background="#000000"
+			android:id="@+id/invoicestablelist"
+			>
+			
+                       <TableRow
+                            android:id="@+id/itablelistrow"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent">
+                            <TextView
+                                android:id="@+id/countinvoiceid" android:text="#"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                 android:gravity="left"/>
+						<TextView
+                                android:id="@+id/iMonth" android:text="Date"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/iName" android:text="Name"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                 android:gravity="left"/>
+                         
+					
+                             <TextView
+                                android:id="@+id/iamount" android:text="Amount(Ksh.)."
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                android:gravity="right"/>
+								
+                        </TableRow>
+      </TableLayout>
+	  </LinearLayout>

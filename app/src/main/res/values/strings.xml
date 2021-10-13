@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ThreePManager</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="property">Hello property fragment</string>
+    <string name="units">Hello units fragment</string>
+    <string name="tenancy">Hello tenancy fragment</string>
+    <string name="invoices">Hello invoices fragment</string>
+    <string name="payments">Hello payment fragment</string>
+    <string name="statements">Hello statement fragment</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="signuphere">Not yet registered? Sign Up</string>
+</resources>

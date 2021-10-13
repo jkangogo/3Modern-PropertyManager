@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Add Unit Service"/>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_top">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+                <TableRow android:layout_marginTop="10dp">
+				<ProgressBar
+                android:id="@+id/unitserviceaddprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+                   
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Property:" />
+
+                        <Spinner
+                            android:id="@+id/spnUnitservicePAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Property Unit:" />
+
+                        <Spinner
+                            android:id="@+id/spnUnitservicePUAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+				<TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Service Type:" />
+
+                        <Spinner
+                            android:id="@+id/spServiveTypeAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+				 <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Service Month:" />
+
+                        <EditText
+                            android:id="@+id/ServiceMonthAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:inputType="datetime"
+                            android:background="@android:drawable/editbox_dropdown_light_frame"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Previous Reading:" />
+
+                        <EditText
+                            android:id="@+id/previousread"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Current Read:" />
+
+                        <EditText
+                            android:id="@+id/currentRead"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Consumption:" />
+
+                        <EditText
+                            android:id="@+id/etConsumption"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Rate:" />
+
+                        <EditText
+                            android:id="@+id/etRate"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:inputType="number"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Service Cost:" />
+
+                        <EditText
+                            android:id="@+id/etServiceCost"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:inputType="text"
+                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+
+
+                    </LinearLayout>
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="115dp"
+                            android:layout_height="match_parent"
+                            android:text="Status:" />
+
+                        <Spinner
+                            android:id="@+id/spnServiceStatusAdd"
+                            android:layout_width="190dp"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btServicesubmit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Save"
+                            android:background="@drawable/mybutton"/>
+
+                        <Button
+                            android:id="@+id/btnServiceclose"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Close"
+                            android:background="@drawable/mybutton"/>
+
+                        <Button
+                            android:id="@+id/btnServicereset"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:text="Reset"
+                            android:background="@drawable/mybutton"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

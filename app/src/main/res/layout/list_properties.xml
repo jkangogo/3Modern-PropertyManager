@@ -1,0 +1,39 @@
+<LinearLayout
+android:id="@+id/linerproperty"
+xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			>
+<TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"  
+			android:stretchColumns="*" 
+			android:background="#000000"
+			android:id="@+id/ptablelist"
+			>
+			
+                       <TableRow
+                            android:id="@+id/ptablelistrow"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent">
+                            <TextView
+                                android:id="@+id/countid" android:text="#"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                 android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/pName" android:text="Name"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                 android:gravity="center"/>
+                          
+                             <TextView
+                                android:id="@+id/pType" android:text="Type"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                android:gravity="right"/>
+                        </TableRow>
+      </TableLayout>
+	  </LinearLayout>

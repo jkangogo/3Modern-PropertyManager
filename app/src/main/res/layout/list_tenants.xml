@@ -1,0 +1,44 @@
+<LinearLayout
+android:id="@+id/linearTenants"
+xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			>
+<TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"  
+			android:stretchColumns="*" 
+			android:background="#000000"
+			android:id="@+id/tenantstablelist"
+			>
+			
+                       <TableRow
+                            android:id="@+id/utablelistrow"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent">
+                            <TextView
+                                android:id="@+id/counttenantid" android:text="#"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                 android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/tName" android:text="Name"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                 android:gravity="left"/>
+                          <TextView
+                                android:id="@+id/tUnit" android:text="Unit"
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                android:gravity="left"/>
+                             <TextView
+                                android:id="@+id/tTelephone" android:text="Tel."
+                                android:layout_weight="1" 
+                                android:textColor="#00ff00" 
+                                android:gravity="right"/>
+								
+                        </TableRow>
+      </TableLayout>
+	  </LinearLayout>
