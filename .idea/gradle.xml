@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="testRunner" value="GRADLE" />
+=======
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+<<<<<<< HEAD
+        <option name="testRunner" value="GRADLE" />
+=======
+        <option name="testRunner" value="PLATFORM" />
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
+>>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
