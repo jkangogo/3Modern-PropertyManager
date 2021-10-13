@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         cancel = findViewById(R.id.btnCancel);
         progressBar = findViewById(R.id.progress);
 
-
         copyrightTV = findViewById(R.id.copyrightTV);
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);

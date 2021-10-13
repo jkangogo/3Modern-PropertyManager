@@ -129,16 +129,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
                      <Button
                         android:id="@+id/UnitServices"
-                        android:layout_width="180dp"
+                        android:layout_width="195dp"
                         android:layout_height="80dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/mybutton"
@@ -146,18 +139,7 @@
                         android:text="Unit Service" />
 					<Button
                         android:id="@+id/back"
-                        android:layout_width="180dp"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
-                    <Button
-                        android:id="@+id/back"
-                        android:layout_width="match_parent"
->>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
+                        android:layout_width="195dp"
                         android:layout_height="80dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/mybutton"

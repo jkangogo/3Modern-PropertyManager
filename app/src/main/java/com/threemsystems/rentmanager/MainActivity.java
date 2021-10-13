@@ -44,18 +44,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), DataEntry.class);
                 startActivity(i);
-<<<<<<< HEAD
                 finish();
-=======
-<<<<<<< HEAD
-                finish();
-=======
-<<<<<<< HEAD
-                finish();
-=======
->>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
             }
         });
 
@@ -64,18 +53,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Reports.class);
                 startActivity(i);
-<<<<<<< HEAD
                 finish();
-=======
-<<<<<<< HEAD
-                finish();
-=======
-<<<<<<< HEAD
-                finish();
-=======
->>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
             }
         });
 
@@ -89,24 +67,8 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
 				Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-<<<<<<< HEAD
-                startActivity(intent);
-                finish();
-=======
-<<<<<<< HEAD
-                startActivity(intent);
-                finish();
-=======
-<<<<<<< HEAD
-                startActivity(intent);
-                finish();
-=======
-				intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
                 finishAffinity();
->>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

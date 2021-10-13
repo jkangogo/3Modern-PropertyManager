@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.threemsystems.rentmanager">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 	
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />	
 	<uses-permission android:name="android.permission.SEND_SMS"/> 
     
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>  
-	
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
->>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 
     <application
         android:allowBackup="true"
@@ -35,28 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThreePManager"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
-        <activity android:name="com.threemsystems.rentmanager.Holder.MessageActivity" 
-		/>	
-		
-=======
-<<<<<<< HEAD
-        <activity android:name="com.threemsystems.rentmanager.Holder.MessageActivity" 
-		/>	
-		
-=======
-<<<<<<< HEAD
-
-        =======
         <activity android:name="com.threemsystems.rentmanager.Holder.MessageActivity" />
->>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
         <activity android:name="com.threemsystems.rentmanager.Holder.Expenditure" />
         <activity android:name="com.threemsystems.rentmanager.NewExpenditure" />
         <activity android:name="com.threemsystems.rentmanager.JounalEntry" />
         <activity android:name="com.threemsystems.rentmanager.NewInvoice" />
-        <activity android:name="com.threemsystems.rentmanager.DataEntry" />
         <activity android:name="com.threemsystems.rentmanager.Reports" />
         <activity android:name="com.threemsystems.rentmanager.Holder.Statements" />
         <activity android:name="com.threemsystems.rentmanager.Holder.Payments" />
@@ -68,22 +35,12 @@
         <activity android:name="com.threemsystems.rentmanager.AddPayment" />
         <activity android:name="com.threemsystems.rentmanager.AddTenant" />
         <activity android:name="com.threemsystems.rentmanager.AddUnit" />
+        <activity android:name="com.threemsystems.rentmanager.DataEntry" />
         <activity android:name="com.threemsystems.rentmanager.AddProperty" />
         <activity android:name="com.threemsystems.rentmanager.RegisterActivity" />
         <activity android:name="com.threemsystems.rentmanager.MainActivity" />
         <activity android:name="com.threemsystems.rentmanager.ResetPassword" />
-<<<<<<< HEAD
-		<activity android:name="com.threemsystems.rentmanager.AddUnitService" />		
-=======
-<<<<<<< HEAD
-		<activity android:name="com.threemsystems.rentmanager.AddUnitService" />		
-=======
-<<<<<<< HEAD
-		<activity android:name="com.threemsystems.rentmanager.AddUnitService" />		
-=======
->>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
+		<activity android:name="com.threemsystems.rentmanager.AddUnitService" />
         <activity android:name="com.threemsystems.rentmanager.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

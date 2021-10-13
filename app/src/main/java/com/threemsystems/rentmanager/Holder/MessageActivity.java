@@ -1,8 +1,4 @@
 package com.threemsystems.rentmanager.Holder;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 import com.threemsystems.rentmanager.*;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,21 +8,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-<<<<<<< HEAD
-=======
-=======
-import android.Manifest;
-import android.app.DatePickerDialog;
-import android.app.PendingIntent;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.telephony.SmsManager;
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,10 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 import android.widget.Spinner;
 import android.app.PendingIntent;  
 import android.content.Intent;  
@@ -54,18 +31,6 @@ import org.json.JSONArray;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-<<<<<<< HEAD
-=======
-=======
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -78,10 +43,6 @@ import com.threemsystems.rentmanager.Config;
 import com.threemsystems.rentmanager.R;
 import com.threemsystems.rentmanager.spinnerItems;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 import android.widget.ProgressBar;
 import android.telephony.SmsManager;
 import android.content.SharedPreferences;
@@ -94,11 +55,6 @@ import android.os.Bundle;
 //import androidx.core.app.ContextCompat;
 import androidx.core.app.ActivityCompat;
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -109,14 +65,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-//import androidx.core.app.ContextCompat;
-
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 public class MessageActivity extends AppCompatActivity {
     Spinner recipient;
 	DatePickerDialog picker;
@@ -178,15 +126,7 @@ public class MessageActivity extends AppCompatActivity {
              propertycode=spinerproperty.getId();
 			 propertyname=spinerproperty.getName();
 			 //call the method to populate unitcode spinner
-<<<<<<< HEAD
 	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-<<<<<<< HEAD
-	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-	Config conf = Config.getInstance();
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 	String url = conf.getSERVERURL()+"list_propertyunits.php"; 
 	//String url = "http://3modernsystems.com/threepmobileserver/list_propertyunits.php";
 	 //getUnitsspinnerData(url,propertycode,);
@@ -211,15 +151,7 @@ public class MessageActivity extends AppCompatActivity {
              spinnerItems spinerunitproperty = (spinnerItems) parent.getSelectedItem();
              unitcode=spinerunitproperty.getId();
 			 unitname=spinerunitproperty.getName();		
-<<<<<<< HEAD
 	 Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-<<<<<<< HEAD
-	 Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-	 Config conf = Config.getInstance();
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 	 String url = conf.getSERVERURL()+"list_tenantidname.php"; 			 
 	 getspinnerData(url,unitcode,"unit_code","getSelectedTenantResult");			 
         }
@@ -380,15 +312,7 @@ String msg="";
 	//populate the spinner for contacts
 	propertypref = getSharedPreferences("user_details", MODE_PRIVATE);
 	String idNo=propertypref.getString("idNo","MisingID");	
-<<<<<<< HEAD
 	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-<<<<<<< HEAD
-	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-	Config conf = Config.getInstance();
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
 	String url = conf.getSERVERURL()+"list_properties.php";	
 	getspinnerData(url,idNo,"owner_id","getPropertySpinnerResult");	
 	//set the text
@@ -418,15 +342,7 @@ String msg="";
 							data[2] = propertycode; 
 							data[3] = smstype;							
 		
-<<<<<<< HEAD
 	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-<<<<<<< HEAD
-	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-	Config conf = Config.getInstance();
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
     String url=conf.getSERVERURL()+"getTelnumbers.php";
     PutData putData = new PutData(url, "POST", field, data);
 	if (putData.startPut()) {
@@ -514,15 +430,7 @@ String msg="";
 							data[3] = contacttype;
 							data[4] = sms_month;								
 		
-<<<<<<< HEAD
 	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-<<<<<<< HEAD
-	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-=======
-	Config conf = Config.getInstance();
->>>>>>> 0ccf562acf0afdfaf3db505a7994472c700c3619
->>>>>>> b2a6c01626f13147a08df95349348756448966af
     String url=conf.getSERVERURL()+"getMSGContent.php";
     PutData putData = new PutData(url, "POST", field, data);
 	if (putData.startPut()) {
