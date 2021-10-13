@@ -24,10 +24,8 @@
         android:theme="@style/Theme.ThreePManager"
         android:usesCleartextTraffic="true">
 <<<<<<< HEAD
-        <activity android:name="com.threemsystems.rentmanager.Holder.MessageActivity" 
-		/>	
-		
-=======
+
+        =======
         <activity android:name="com.threemsystems.rentmanager.Holder.MessageActivity" />
 >>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
         <activity android:name="com.threemsystems.rentmanager.Holder.Expenditure" />

@@ -1,38 +1,38 @@
 package com.threemsystems.rentmanager.Holder;
 
-import androidx.appcompat.widget.Toolbar;
-
+import android.app.ListActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.Volley;
-import com.android.volley.toolbox.StringRequest;
+import androidx.appcompat.widget.Toolbar;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.AuthFailureError;
-import android.app.ListActivity;
-
-import com.android.volley.RequestQueue ;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.threemsystems.rentmanager.Config;
-import com.threemsystems.rentmanager.spinnerItems;
 import com.threemsystems.rentmanager.R;
+import com.threemsystems.rentmanager.spinnerItems;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
-import java.util.Map;import java.util.HashMap;
-import android.content.SharedPreferences;
 import java.util.ArrayList;
-
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Units extends ListActivity {
     ArrayList<String> properties;
