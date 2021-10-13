@@ -20,7 +20,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+<<<<<<< HEAD
             crunchPngs true
+=======
+            crunchPngs false
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
 
         }
     }

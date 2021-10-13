@@ -129,6 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+<<<<<<< HEAD
                      <Button
                         android:id="@+id/UnitServices"
                         android:layout_width="180dp"
@@ -140,6 +141,11 @@
 					<Button
                         android:id="@+id/back"
                         android:layout_width="180dp"
+=======
+                    <Button
+                        android:id="@+id/back"
+                        android:layout_width="match_parent"
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
                         android:layout_height="80dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/mybutton"

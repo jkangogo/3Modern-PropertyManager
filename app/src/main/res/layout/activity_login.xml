@@ -82,7 +82,10 @@
                         android:layout_marginLeft="30dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
+<<<<<<< HEAD
 						android:text=""
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
                         android:drawableEnd="@drawable/ic_login"
                         android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:hint="@string/username"/>
@@ -98,12 +101,18 @@
                         android:padding="10dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
+<<<<<<< HEAD
 						android:text=""
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
                         app:passwordToggleEnabled="true"
                         android:drawableEnd="@drawable/ic_pass"
                         android:background="@android:drawable/editbox_dropdown_light_frame"
                         android:inputType="textPassword" />
+<<<<<<< HEAD
 						
+=======
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

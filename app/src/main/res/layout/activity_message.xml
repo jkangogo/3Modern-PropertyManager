@@ -108,6 +108,7 @@
                         <TextView
                             android:layout_width="115dp"
                             android:layout_height="match_parent"
+<<<<<<< HEAD
                             android:text="Month :" />
 
                         <EditText
@@ -116,6 +117,15 @@
                             android:layout_height="match_parent"
                             android:textColor="@color/black"
 							android:inputType="datetime"
+=======
+                            android:text="To :" />
+
+                        <EditText
+                            android:id="@+id/etRecipient"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/black"
+>>>>>>> 9f40e6ad2715ec2eeb495b86d592bbfb11e408a8
                             android:background="@android:drawable/editbox_dropdown_light_frame" />
 
 
