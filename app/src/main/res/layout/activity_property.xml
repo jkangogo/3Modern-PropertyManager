@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Holder.Property">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="Properties"/>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="2dp">
+
+        <Spinner
+            android:id="@+id/spinnerProperty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+        <Spinner
+            android:id="@+id/spinneraction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+		 <TableLayout
+		  android:id="@+id/ptable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"  android:stretchColumns="*" android:background="#000000">
+     <TableRow
+                            android:id="@+id/tableRow1"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent">
+                            <TextView
+                                android:id="@+id/countid" android:text="#"
+                                android:layout_weight="1"
+                                android:textColor="#00FFFF"
+                                 android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/pName" android:text="Name"
+                                android:layout_weight="1"
+                                android:textColor="#00FFFF"
+                                 android:gravity="center"/>
+                          
+                             <TextView
+                                android:id="@+id/pType" android:text="Type"
+                                android:layout_weight="1"
+                                android:textColor="#00FFFF"
+                                android:gravity="right"/>
+                        </TableRow>
+    <ListView
+        android:id="@android:id/list"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+    </ListView>
+     </TableLayout>
+
+            <Button
+                android:id="@+id/btnloadProperties"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/mybutton"
+                android:text="Load" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>
