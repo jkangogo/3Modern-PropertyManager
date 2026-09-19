@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Medium: unfolded foldables, 7" tablets, landscape phones. -->
+    <integer name="hub_columns">3</integer>
+</resources>

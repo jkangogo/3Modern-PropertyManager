@@ -1,30 +1,17 @@
 package com.threemsystems.rentmanager;
 
-/**
- * Created by Joel on 11/01/2021.
- */
 public class Config {
-    //JSON URL
-    public static final String DATA_URL = "http://172.16.4.253/server/propertySpinner.php";
+    private static final Config INSTANCE = new Config();
+    // HTTPS is available on this host but the certificate expired in 2023; keep HTTP until it is renewed.
+    private final String SERVER_URL = "http://3modernsystems.co.ke/threepmobileserver/";
 
-    //Tags used in the JSON String
-    public static final String TAG_NAME = "property_name";
+    private Config() {}
 
-    
-    public static final String JSON_ARRAY = "result";
-	//Server url
-	private final String SERVER_URL = "http://3modernsystems.com/threepmobileserver/";
-	//private final String SERVER_URL = "http://3modernsystems.com/threepmobileserver_dev/";
+    public static Config getInstance() {
+        return INSTANCE;
+    }
 
-public String getSERVERURL() {
-    return SERVER_URL;
-}
-
-private static final Config ourInstance = new Config();
-public static Config getInstance() {
-      return ourInstance;
-   }
-public Config(){
-	
-}
+    public String getSERVERURL() {
+        return SERVER_URL;
+    }
 }

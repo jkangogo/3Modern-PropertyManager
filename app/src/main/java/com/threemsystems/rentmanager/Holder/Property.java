@@ -1,183 +1,152 @@
 package com.threemsystems.rentmanager.Holder;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
-import com.android.volley.toolbox.Volley;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
-
-import java.util.Map;import java.util.HashMap;
-import com.android.volley.RequestQueue ;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONArray;
-import java.util.ArrayList;
-
+import com.android.volley.toolbox.StringRequest;
+import com.threemsystems.rentmanager.Config;
+import com.threemsystems.rentmanager.FormRequest;
 import com.threemsystems.rentmanager.R;
-import android.content.SharedPreferences;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
-import android.app.ListActivity;
+import com.threemsystems.rentmanager.ReportColumn;
+import com.threemsystems.rentmanager.ReportSupport;
+import com.threemsystems.rentmanager.ReportTableHost;
+import com.threemsystems.rentmanager.ScreenNav;
+import com.threemsystems.rentmanager.SessionManager;
+import com.threemsystems.rentmanager.VolleyErrors;
 
-public class Property extends ListActivity {
-	SharedPreferences propertypref ;
-	//List<allRentalData> propertyList;
- ArrayList<HashMap<String, String>> propertyList = new ArrayList<HashMap<String, String>>();
-	 RecyclerView.Adapter mAdapter;
-	 RecyclerView recyclerView;
-	  private  JSONArray result;
-	  public static final String TAG_jsonarray = "result";
-	  private final String TAG_PTYPE="property_desc";
-	  private final String TAG_PNAME="property_name";
-	  private final String TAG_OID="owner_identifier";
-	  private final String ptype="Individual";
-	
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Property extends AppCompatActivity {
+    private final ArrayList<HashMap<String, String>> propertyList = new ArrayList<>();
+    private Spinner spnProperty;
+    private ReportTableHost table;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property);
-        Spinner spnProperty = findViewById(R.id.spinnerProperty);
-        Spinner spnAction = findViewById(R.id.spinneraction);
-        Button loadProperty = findViewById(R.id.btnloadProperties);
+        ScreenNav.bind(this);
+        spnProperty = findViewById(R.id.spinnerProperty);
+        table = ReportTableHost.attach(this)
+                .setEmpty("No properties yet. Choose a type or add one from Data entry.");
+        table.setColumns(
+                ReportColumn.center("#", "#", 48),
+                ReportColumn.of("owner_id", "Owner ID", 110),
+                ReportColumn.of("property_name", "Property Name", 160),
+                ReportColumn.of("short_name", "Short Name", 110),
+                ReportColumn.of("description", "Description", 150),
+                ReportColumn.of("payment", "Payment Details", 180),
+                ReportColumn.of("contact", "Contact", 110),
+                ReportColumn.of("status", "Status", 90)
+        );
 
-        loadProperty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-    
-	propertypref = getSharedPreferences("user_details", MODE_PRIVATE);				
-	String idNo=propertypref.getString("idNo","MisingID");	        
- 	com.threemsystems.rentmanager.Config conf = com.threemsystems.rentmanager.Config.getInstance();
-	String url = conf.getSERVERURL()+"select_properties.php";
-	//Toast.makeText(getApplicationContext(), url+"_"+idNo, Toast.LENGTH_LONG).show();	 
-  getpropertiesData(url,idNo,ptype);
-
-            }
-        });
-
-        ArrayList<String> OwnerTypeList = new ArrayList<>();
-		OwnerTypeList.add("Owner Type");
-        OwnerTypeList.add("Cooperate");
-        OwnerTypeList.add("Individual");
-        OwnerTypeList.add("All");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, OwnerTypeList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnProperty.setAdapter(arrayAdapter);
-    
-	spnProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String OwnerTypeItem = arrayAdapter.getItem(position).toString();
-	propertypref = getSharedPreferences("user_details", MODE_PRIVATE);				
-	String idNo=propertypref.getString("idNo","MisingID");	          
-		com.threemsystems.rentmanager.Config conf = com.threemsystems.rentmanager.Config.getInstance();
-		String url = conf.getSERVERURL()+"select_properties.php";
-		//Toast.makeText(getApplicationContext(), url+"_"+idNo, Toast.LENGTH_LONG).show();
-	 	getpropertiesData(url,idNo,OwnerTypeItem);
-		//Toast.makeText(getApplicationContext(), OwnerTypeItem, Toast.LENGTH_LONG).show(); 
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        ArrayList<String> ActioList = new ArrayList<>();
-		ActioList.add("Select Action");
-        ActioList.add("Print");
-        ActioList.add("Export(Excel)");
-        ActioList.add("Print Property");
-        ArrayAdapter<String> actionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ActioList);
-        actionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnAction.setAdapter(actionAdapter);
-        spnAction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnProperty.setAdapter(ReportSupport.stringAdapter(this, new String[]{"All", "Cooperate", "Individual"}));
+        spnProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String ActionItem = actionAdapter.getItem(position).toString();
+                loadProperties();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        ReportSupport.bindPdfActions(findViewById(R.id.spinneraction), new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                handleAction(ReportSupport.selectedAction(parent));
+            }
 
-       // getDataFromApi();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        loadProperties();
     }
-	private void getpropertiesData(String url,String owner_id,String p_type){	
-    StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    JSONObject j = null;
-                    try {
-                        j = new JSONObject(response);
-                        result = j.getJSONArray(TAG_jsonarray);
-                        getpropertiesResult(result);
-						//loadData(result);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
-            })
-			{
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String,String> map = new HashMap<String,String>();
-            map.put("owner_id",owner_id);  
-			map.put("p_type",p_type); 			
-            return map;
+
+    private String selectedType() {
+        return spnProperty.getSelectedItem() == null ? "All" : String.valueOf(spnProperty.getSelectedItem());
+    }
+
+    private void loadProperties() {
+        fetchProperties("All".equals(selectedType()) ? "" : selectedType(), this::bindRows);
+    }
+
+    private interface RowsCallback {
+        void onRows(JSONArray rows);
+    }
+
+    private void fetchProperties(String type, RowsCallback callback) {
+        String idNo = SessionManager.get(this).getOwnerId();
+        ScreenNav.setBusy(this, true);
+        StringRequest request = new FormRequest(Config.getInstance().getSERVERURL() + "select_properties.php",
+                response -> {
+                    ScreenNav.setBusy(Property.this, false);
+                    ReportSupport.warnIfNotJson(Property.this, response);
+                    callback.onRows(ReportSupport.resultArray(response));
+                },
+                error -> {
+                    ScreenNav.setBusy(Property.this, false);
+                    VolleyErrors.show(Property.this, error);
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("owner_id", idNo);
+                map.put("p_type", type == null ? "" : type);
+                return map;
+            }
+        };
+        ReportSupport.enqueue(this, request);
+    }
+
+    private void bindRows(JSONArray rows) {
+        propertyList.clear();
+        int n = 0;
+        for (int i = 0; i < rows.length(); i++) {
+            JSONObject json = rows.optJSONObject(i);
+            if (json == null) {
+                continue;
+            }
+            String name = json.optString("property_name", "").trim();
+            String code = json.optString("property_code", "").trim();
+            if (name.isEmpty() && code.isEmpty()) {
+                continue;
+            }
+            HashMap<String, String> item = new HashMap<>();
+            item.put("#", String.valueOf(++n));
+            item.put("owner_id", ReportSupport.displayOrDash(json.optString("owner_identifier")));
+            item.put("property_name", ReportSupport.displayOrDash(name));
+            item.put("short_name", ReportSupport.displayOrDash(json.optString("short_name")));
+            item.put("description", ReportSupport.displayOrDash(json.optString("property_desc")));
+            item.put("payment", ReportSupport.displayOrDash(json.optString("paymentChannel")));
+            item.put("contact", ReportSupport.displayOrDash(json.optString("property_tel")));
+            item.put("status", ReportSupport.displayOrDash(json.optString("property_status")));
+            propertyList.add(item);
         }
-    };	
-    RequestQueue requestQueue = Volley.newRequestQueue(this);
-    requestQueue.add(stringRequest);
+        table.setRows(propertyList);
+    }
+
+    private void handleAction(String action) {
+        String idNo = SessionManager.get(this).getOwnerId();
+        Map<String, String> params = new HashMap<>();
+        params.put("ownerid", idNo);
+        params.put("property_type", "All".equals(selectedType()) ? "" : selectedType());
+        ReportSupport.handlePdfAction(
+                this,
+                action,
+                ReportSupport.withQuery(Config.getInstance().getSERVERURL() + "printProperties.php", params),
+                "properties.pdf"
+        );
+    }
 }
-private void getpropertiesResult(JSONArray j){	
-int ft=0;
-  propertyList.clear();
-   // map.clear();
-    for(int i=0;i<j.length();i++){			
-        try {        	
-		JSONObject json = j.getJSONObject(i);
-		String count = String.valueOf(i+1);     
-			String ownerid = json.getString("owner_identifier");                       
-			String pname = json.getString("property_name");                       
-			String ptype = json.getString("property_type");                     
-            //  hashmap for single match
-             HashMap<String, String> property_item = new HashMap<String, String>();
-             // adding each child node to HashMap key => value                        
-						property_item.put(TAG_OID, count);
-						//property_item.put(TAG_OID, ownerid);
-                        property_item.put(TAG_PNAME, pname);
-                        property_item.put(TAG_PTYPE, ptype);
-						propertyList.add(property_item);
-					ft=ft+1;
-						
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-		
-    }
-	
-	
-	ListAdapter adapter = new SimpleAdapter(
-                    Property.this, propertyList,
-                    R.layout.list_properties, new String[] {
-        TAG_OID, TAG_PNAME,TAG_PTYPE
-    }, new int[] { R.id.countid,R.id.pName,R.id.pType}
-    );
-    setListAdapter(adapter);	
-//Toast.makeText(getApplicationContext(), String.valueOf(ft), Toast.LENGTH_LONG).show(); 
-	} 
-	}

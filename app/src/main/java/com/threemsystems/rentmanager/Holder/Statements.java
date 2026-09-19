@@ -1,458 +1,489 @@
-
 package com.threemsystems.rentmanager.Holder;
-import android.app.DatePickerDialog;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-import android.content.SharedPreferences;
+import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
+import androidx.appcompat.app.AppCompatActivity;
 
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
-import com.android.volley.toolbox.Volley;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.AuthFailureError;
-import android.app.ListActivity;
-
-import com.android.volley.RequestQueue ;
-import com.threemsystems.rentmanager.spinnerItems;
+import com.android.volley.toolbox.StringRequest;
 import com.threemsystems.rentmanager.Config;
+import com.threemsystems.rentmanager.DateUi;
+import com.threemsystems.rentmanager.FormRequest;
+import com.threemsystems.rentmanager.JounalEntry;
 import com.threemsystems.rentmanager.R;
-import java.util.Calendar;
-import java.util.Map;
+import com.threemsystems.rentmanager.ReportColumn;
+import com.threemsystems.rentmanager.ReportSupport;
+import com.threemsystems.rentmanager.ReportTableHost;
+import com.threemsystems.rentmanager.ScreenNav;
+import com.threemsystems.rentmanager.SessionManager;
+import com.threemsystems.rentmanager.UiNotifier;
+import com.threemsystems.rentmanager.VolleyErrors;
+import com.threemsystems.rentmanager.spinnerItems;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Statements extends ListActivity {
-    DatePickerDialog picker, picker2;
-	Spinner spnProperty,spnUnit,spnTenant,spnAction,spnType;
-	EditText dateStart ,dateEnd;
-	
-	private JSONArray result;
-	public static final String TAG_jsonarray = "result";
-	public static final String TAG_propertycode = "property_code";
-	public static final String TAG_propertyname = "property_name";
-	String propertycode, propertyname,unitcode,unitname;
-	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-	
-	SharedPreferences propertypref ;
-	String TAG_DATE="statement_date"; 
-	String TAG_TENANTNAME="tenant_name";
-	String TAG_DESC="statement_desc";	
-	String TAG_AMOUNT="statement_amount";
-	String TAG_BALANCE="statement_balance";
-	String startdate="";String enddate="";String tenantid="";
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
-	ArrayList<spinnerItems> propertyspinnerlist = new ArrayList<>();
-	ArrayList<spinnerItems> unitspinnerlist = new ArrayList<>();
-	ArrayList<spinnerItems> tenantpinnerlist = new ArrayList<>(); 
-	ArrayList<HashMap<String, String>> statementList = new ArrayList<HashMap<String, String>>();
+public class Statements extends AppCompatActivity {
+    private static final String[] STATEMENT_TYPES = {"All", "Payments", "Unpaid", "Invoices", "Credit Note", "Bounced"};
+    private static final String[] DEBT_TYPES = {"Active Debts", "Inactive Debts", "All Debts"};
+
+    Spinner spnProperty, spnTenant, spnAction, spnType;
+    View tenantFilter;
+    TextView btnChoiceStatements, btnChoiceDebts, txtScope;
+    ArrayList<spinnerItems> propertyspinnerlist = new ArrayList<>();
+    ArrayList<spinnerItems> tenantpinnerlist = new ArrayList<>();
+    ArrayList<HashMap<String, String>> statementList = new ArrayList<>();
+    String startdate = "";
+    String enddate = "";
+    String propertycode = "";
+    String ownerId;
+    String currentChoice = "Statements";
+    Config conf = Config.getInstance();
+    ReportTableHost table;
+    boolean applyingChoice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statements);
+        ScreenNav.bind(this);
 
-         dateStart = findViewById(R.id.datestt);
-         dateEnd = findViewById(R.id.datend);
-		 spnProperty = findViewById(R.id.spnprty);
-		  spnUnit = findViewById(R.id.spnunt); 
-         spnTenant = findViewById(R.id.spntt);
-         spnType = findViewById(R.id.spntype);
-         spnAction = findViewById(R.id.spnacton);
-		 
-		 propertypref = getSharedPreferences("user_details", MODE_PRIVATE);
-		 String idNo=propertypref.getString("idNo","MisingID");
+        EditText dateStart = findViewById(R.id.datestt);
+        EditText dateEnd = findViewById(R.id.datend);
+        spnProperty = findViewById(R.id.spnprty);
+        spnTenant = findViewById(R.id.spntt);
+        spnType = findViewById(R.id.spntype);
+        spnAction = findViewById(R.id.spnacton);
+        tenantFilter = findViewById(R.id.tenantFilter);
+        btnChoiceStatements = findViewById(R.id.btnChoiceStatements);
+        btnChoiceDebts = findViewById(R.id.btnChoiceDebts);
+        txtScope = findViewById(R.id.txtScope);
+        table = ReportTableHost.attach(this).setEmpty("Select a tenant to load a statement.");
+        findViewById(R.id.btnJournal).setOnClickListener(v ->
+                startActivity(new Intent(Statements.this, JounalEntry.class)));
+        ownerId = SessionManager.get(this).getOwnerId();
 
-        dateStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                picker = new DatePickerDialog(Statements.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);						
-						startdate=year  + "-" + (monthOfYear + 1) + "-" + dayOfMonth;						
-                    }
-                }, year, month, day);
-                picker.show();
-            }
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        enddate = DateUi.format(cal);
+        dateEnd.setText(enddate);
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, -1);
+        startdate = DateUi.format(c);
+        dateStart.setText(startdate);
+
+        DateUi.bindPicker(this, dateStart, iso -> {
+            startdate = iso;
+            loadGrid();
         });
-        dateEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                picker2 = new DatePickerDialog(Statements.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-						enddate=year  + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-                    }
-                }, year, month, day);
-                picker2.show();
-            }
+        DateUi.bindPicker(this, dateEnd, iso -> {
+            enddate = iso;
+            loadGrid();
         });
-	
-	spnProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        btnChoiceStatements.setOnClickListener(v -> setChoice("Statements"));
+        btnChoiceDebts.setOnClickListener(v -> setChoice("Debt Summary"));
+
+        AdapterView.OnItemSelectedListener reload = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-          	
-			spinnerItems spinerproperty = (spinnerItems) parent.getSelectedItem();
-            propertycode=spinerproperty.getId();
-			propertyname=spinerproperty.getName();	
-		/*			
-			String url2 = conf.getSERVERURL()+"select_tenantpayments.php";	
-			paymentList.clear();			
-			getPaymentsListData(url2,idNo,startdate,enddate, propertycode, "","");
-			unitspinnerlist.clear(); */
+                if (parent == spnProperty) {
+                    propertycode = ReportSupport.spinnerId(spnProperty);
+                    loadTenants();
+                }
+                if (!applyingChoice) {
+                    loadGrid();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
-        });
-	spnProperty.setOnTouchListener(new View.OnTouchListener(){
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {			
-		String url = conf.getSERVERURL()+"list_properties.php";	
-		getspinnerData(url,idNo,"owner_id","getPropertySpinnerResult");	
-			return false;
-		}
-		});		
-	spnUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        };
+        spnProperty.setOnItemSelectedListener(reload);
+        spnTenant.setOnItemSelectedListener(reload);
+        spnType.setOnItemSelectedListener(reload);
+
+        ReportSupport.bindPdfActions(spnAction, new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-             //Config conf = com.threemodern.threepmanager.Config.getInstance();
-			 spinnerItems spinerunitproperty = (spinnerItems) parent.getSelectedItem();
-             unitcode=spinerunitproperty.getId();
-			 unitname=spinerunitproperty.getName();			
+                handleAction(ReportSupport.selectedAction(parent));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-	spnUnit.setOnTouchListener(new View.OnTouchListener(){
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			//Toast.makeText ( Payments.this, "Touched", Toast.LENGTH_SHORT ).show();
-			String url = conf.getSERVERURL()+"list_propertyunits.php";	
-		//	unitspinnerlist.clear();				    
-			getspinnerData(url,propertycode,"property_code","getSelectunitsResult");
-			
-			return false;
-		}
-
-		});
-    spnTenant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-         spinnerItems spinertenants = (spinnerItems) parent.getSelectedItem();
-         
-				tenantid=spinertenants.getId();		
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-	spnTenant.setOnTouchListener(new View.OnTouchListener(){
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-		//Toast.makeText ( Payments.this, "tenant Touched", Toast.LENGTH_SHORT ).show();
-		String url = conf.getSERVERURL()+"list_tenantidname.php";
-		//tenantpinnerlist.clear();		            
-		getspinnerData(url,unitcode,"unit_code","getSelectedTenantResult");
-			
-			return false;
-		}
-
-		});	
-
-        ArrayList<String> TypeList = new ArrayList<>();
-		TypeList .add("Select type");
-		TypeList .add("All");
-        TypeList .add("Payments");
-        TypeList .add("Unpaid");
-        TypeList .add("Invoices");
-        TypeList .add("Credit Note");
-        TypeList .add("Bounced");
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TypeList );
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnType.setAdapter(typeAdapter);
-		
-        spnType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-       String stdate=dateStart.getText().toString() ; String edate= dateEnd.getText().toString();
-	  
-	  if(stdate.equals("")  || edate.equals("")){
-		   Toast.makeText(getApplicationContext(), "Make sure your dates are set", Toast.LENGTH_LONG).show();		
-		}	else{
-		String url = conf.getSERVERURL()+"select_tenantstatement.php";	
-		String selecttype = typeAdapter.getItem(position).toString();
-		//statementList.clear();			
-		getStatementsListData(url,idNo,startdate,enddate,propertycode,unitcode,tenantid,selecttype);
-		
-		}	
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
-        ArrayList<String> ActionList = new ArrayList<>();
-        ActionList.add("Print Statement");
-        ActionList.add("Print Debts");
-        ActionList.add("Journal Entry");
-        ActionList.add("Email");
-        ActionList.add("Excel");
-        ArrayAdapter<String> actionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ActionList);
-        actionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnAction.setAdapter(actionAdapter);
-        spnAction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String ActionItem = actionAdapter.getItem(position).toString();
+        applyingChoice = true;
+        applyChoiceUi();
+        applyingChoice = false;
+        getspinnerData(conf.getSERVERURL() + "list_properties.php", ownerId, "owner_id", "properties");
+    }
+
+    private void setChoice(String choice) {
+        if (ReportSupport.same(currentChoice, choice)) {
+            return;
+        }
+        currentChoice = choice;
+        applyingChoice = true;
+        applyChoiceUi();
+        applyingChoice = false;
+        loadGrid();
+    }
+
+    private String tenantId() {
+        return ReportSupport.spinnerId(spnTenant);
+    }
+
+    private boolean isStatementsChoice() {
+        return "Statements".equals(currentChoice);
+    }
+
+    private boolean isDebtSummary() {
+        return "Debt Summary".equals(currentChoice);
+    }
+
+    private String selectValue() {
+        return spnType.getSelectedItem() == null ? "" : String.valueOf(spnType.getSelectedItem());
+    }
+
+    private boolean isUnpaid() {
+        return isStatementsChoice() && "Unpaid".equals(selectValue());
+    }
+
+    private void applyChoiceUi() {
+        boolean statements = isStatementsChoice();
+        boolean debts = isDebtSummary();
+        btnChoiceStatements.setSelected(statements);
+        btnChoiceDebts.setSelected(debts);
+        tenantFilter.setVisibility(statements ? View.VISIBLE : View.GONE);
+        if (statements) {
+            spnType.setAdapter(ReportSupport.stringAdapter(this, STATEMENT_TYPES));
+        } else if (debts) {
+            spnType.setAdapter(ReportSupport.stringAdapter(this, DEBT_TYPES));
+        }
+        applyColumns();
+        updateScope();
+    }
+
+    private void applyColumns() {
+        if (isDebtSummary()) {
+            table.setColumns(
+                    ReportColumn.of("tenant_tel", "Tel. No.", 130),
+                    ReportColumn.of("tenant_name", "Tenant", 160),
+                    ReportColumn.of("unit_name", "Unit", 110),
+                    ReportColumn.money("balance", "Balance", 110)
+            );
+        } else if (isUnpaid()) {
+            table.setColumns(
+                    ReportColumn.of("tenant_id", "Tenant ID", 120),
+                    ReportColumn.of("tenant_name", "Names", 160),
+                    ReportColumn.of("tenant_tel", "Tel No.", 120),
+                    ReportColumn.of("status", "Status", 100),
+                    ReportColumn.money("balance", "Balance", 110)
+            );
+        } else {
+            table.setColumns(
+                    ReportColumn.of("date", "Date", 110),
+                    ReportColumn.of("tenant", "Tenant", 150),
+                    ReportColumn.of("desc", "Description", 180),
+                    ReportColumn.money("debit", "Debit/Invoices", 120),
+                    ReportColumn.money("credit", "Credit/Payments", 130),
+                    ReportColumn.money("balance", "Balance", 110)
+            );
+        }
+    }
+
+    private void updateScope() {
+        if (txtScope == null) {
+            return;
+        }
+        if (isDebtSummary()) {
+            String property = ReportSupport.spinnerName(spnProperty);
+            txtScope.setText(ReportSupport.filled(propertycode)
+                    ? "Debt summary for " + property + " · " + selectValue()
+                    : "Select a property, then Active, Inactive, or All Debts.");
+            return;
+        }
+        if (isUnpaid()) {
+            txtScope.setText(ReportSupport.filled(tenantId())
+                    ? "Unpaid balance for " + ReportSupport.spinnerName(spnTenant)
+                    : "Unpaid balances for all tenants");
+            return;
+        }
+        if (ReportSupport.filled(tenantId())) {
+            txtScope.setText("Statement for " + ReportSupport.spinnerName(spnTenant) + " · " + selectValue());
+        } else {
+            txtScope.setText("Select a tenant to load a statement. Unpaid with All tenants shows every outstanding balance.");
+        }
+    }
+
+    private void loadTenants() {
+        if (ReportSupport.filled(propertycode)) {
+            getspinnerData(conf.getSERVERURL() + "select_tenants.php", propertycode, "property", "tenants");
+        } else {
+            getspinnerData(conf.getSERVERURL() + "list_tenantidnamebyowner.php", ownerId, "owner_id", "tenants");
+        }
+    }
+
+    private void loadGrid() {
+        applyColumns();
+        updateScope();
+        if (!isStatementsChoice() && !isDebtSummary()) {
+            statementList.clear();
+            table.setRows(statementList);
+            return;
+        }
+        if (!ReportSupport.filled(startdate, enddate)) {
+            UiNotifier.snack(this, "Choose a start and end date first.");
+            return;
+        }
+        if (isDebtSummary()) {
+            if (!ReportSupport.filled(propertycode)) {
+                statementList.clear();
+                table.setEmpty("Select a property first.");
+                table.setRows(statementList);
+                return;
             }
+            loadDebtSummary();
+            return;
+        }
+        if (!isUnpaid() && !ReportSupport.filled(tenantId())) {
+            statementList.clear();
+            table.setEmpty("Select a tenant first. Choose All tenants only for Unpaid.");
+            table.setRows(statementList);
+            return;
+        }
+        loadStatements();
+    }
 
+    private void loadStatements() {
+        StringRequest request = new FormRequest(conf.getSERVERURL() + "select_tenantstatement.php",
+                response -> {
+                    ReportSupport.warnIfNotJson(Statements.this, response);
+                    bindStatements(ReportSupport.resultArray(response));
+                },
+                error -> VolleyErrors.show(Statements.this, error)) {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("owner_id", ownerId);
+                map.put("start_date", startdate);
+                map.put("end_date", enddate);
+                map.put("pcode", propertycode == null ? "" : propertycode);
+                map.put("ucode", "");
+                map.put("id", tenantId());
+                map.put("stype", selectValue());
+                return map;
+            }
+        };
+        ReportSupport.enqueue(this, request);
+    }
 
+    private void loadDebtSummary() {
+        StringRequest request = new FormRequest(conf.getSERVERURL() + "select_debtsummary.php",
+                response -> {
+                    ReportSupport.warnIfNotJson(Statements.this, response);
+                    bindDebts(ReportSupport.resultArray(response));
+                },
+                error -> VolleyErrors.show(Statements.this, error)) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("owner_id", ownerId);
+                map.put("pcode", propertycode == null ? "" : propertycode);
+                map.put("start_date", startdate);
+                map.put("end_date", enddate);
+                map.put("stype", selectValue());
+                return map;
+            }
+        };
+        ReportSupport.enqueue(this, request);
+    }
+
+    private void getspinnerData(String url, String fieldcode, String fieldname, String kind) {
+        Map<String, String> map = new HashMap<>();
+        map.put(fieldname, fieldcode == null ? "" : fieldcode);
+        if ("tenants".equals(kind) && "property".equals(fieldname)) {
+            map.put("owner_id", ownerId);
+            map.put("tenant_identifier", "");
+            map.put("tenant_name", "");
+            map.put("unit", "");
+            map.put("startdate", "");
+            map.put("enddate", "");
+            map.put("dateflag", "");
+        }
+        ReportSupport.loadRows(this, url, map, rows -> {
+            if ("properties".equals(kind)) {
+                ReportSupport.fillNamed(spnProperty, propertyspinnerlist, rows,
+                        "property_code", "property_name", "All properties");
+            } else {
+                ReportSupport.fillNamed(spnTenant, tenantpinnerlist, rows,
+                        "tenant_identifier", "tenant_name", "All tenants");
             }
         });
     }
-	private void getspinnerData(String url,String fieldcode,String fieldname,String functionname){	
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-				new Response.Listener<String>() {
-					@Override
-					public void onResponse(String response) {
-						JSONObject j = null;
-						try {
-							j = new JSONObject(response);
-							result = j.getJSONArray(TAG_jsonarray);
-							if(functionname.equals("getPropertySpinnerResult")){
-							getPropertySpinnerResult(result);
-							}else if(functionname.equals("getSelectunitsResult")){
-								 getSelectunitsResult(result);
-							}
-							else if(functionname.equals("getSelectedTenantResult")){
-								 getSelectedTenantResult(result);
-							}
-							
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-				},
-				new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-					}
-				})
-				{
-			@Override
-			protected Map<String, String> getParams() throws AuthFailureError {
-				Map<String,String> map = new HashMap<String,String>();
-				map.put(fieldname,fieldcode);          
-				return map;
-			}
-		};	
-		
-		//175599	mtrh 771
-		RequestQueue requestQueue = Volley.newRequestQueue(this);
-		requestQueue.add(stringRequest);
-	}
-	private void getPropertySpinnerResult(JSONArray j){
-		propertyspinnerlist.clear();
-		for(int i=0;i<j.length();i++){
-			try {
-				JSONObject json = j.getJSONObject(i);
-			   // properties.add(json.getString(json.getString(TAG_propertyname));			
-				propertyspinnerlist.add(new spinnerItems(json.getString(TAG_propertycode), json.getString(TAG_propertyname)));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-	   // property_spinner.setAdapter(new ArrayAdapter<String>(AddUnit.this, android.R.layout.simple_spinner_dropdown_item, properties));
-		 spnProperty.setAdapter(new ArrayAdapter<spinnerItems>(Statements.this, android.R.layout.simple_spinner_dropdown_item, propertyspinnerlist));
-	}
-	private void getSelectunitsResult(JSONArray j){
-		unitspinnerlist.clear();
-		for(int i=0;i<j.length();i++){
-			try {
-				JSONObject json = j.getJSONObject(i);
-			   // properties.add(json.getString(json.getString(TAG_propertyname));			
-				unitspinnerlist.add(new spinnerItems(json.getString("unit_code"), json.getString("unit_name")));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-	   // property_spinner.setAdapter(new ArrayAdapter<String>(AddUnit.this, android.R.layout.simple_spinner_dropdown_item, properties));
-		 spnUnit.setAdapter(new ArrayAdapter<spinnerItems>(Statements.this, android.R.layout.simple_spinner_dropdown_item, unitspinnerlist));
-	}
-	private void getSelectedTenantResult(JSONArray j){
-	tenantpinnerlist.clear();	
-		for(int i=0;i<j.length();i++){
-			try {
-				JSONObject json = j.getJSONObject(i);
-			   // properties.add(json.getString(json.getString(TAG_propertyname));			
-			tenantpinnerlist.add(new spinnerItems(json.getString("tenant_identifier"), json.getString("tenant_name")));
-			} catch (JSONException e) {
-				e.printStackTrace();
 
-			}
-		}
-	   // property_spinner.setAdapter(new ArrayAdapter<String>(AddUnit.this, android.R.layout.simple_spinner_dropdown_item, properties));
-		 spnTenant.setAdapter(new ArrayAdapter<spinnerItems>(Statements.this, android.R.layout.simple_spinner_dropdown_item, tenantpinnerlist));
-	}
-	private void getStatementsListData(String url,String o_id,String s_date,String e_date,
-	String p_code,String u_code,String t_id, String selecttype){	
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-				new Response.Listener<String>() {
-					@Override
-					public void onResponse(String response) {
-						JSONObject j = null;
-						try {
-							j = new JSONObject(response);
-							result = j.getJSONArray("result");
-							getStatementsResult(result);
-							//loadData(result);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-				},
-				new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-					}
-				})
-				{
-			@Override
-			protected Map<String, String> getParams() throws AuthFailureError {
-				Map<String,String> map = new HashMap<String,String>();
-				map.put("owner_id",o_id); 
-				map.put("start_date",s_date);
-				map.put("end_date",e_date);              		
-				map.put("pcode",p_code); 
-				map.put("ucode",u_code); 
-				map.put("id",t_id);
-				map.put("stype",selecttype);
-				
-				return map;
-			}
-		};	
-		RequestQueue requestQueue = Volley.newRequestQueue(this);
-		requestQueue.add(stringRequest);
-	}
-	private void getStatementsResult(JSONArray j){	
-	int ft=0;Float totalamount=0.0f;
-	String sbalance="";
-	  statementList.clear();
-	   // map.clear();
-		for(int i=0;i<j.length();i++){
-				
-			try {        	
-			JSONObject json = j.getJSONObject(i);
-				String count = String.valueOf(i+1);   
-				String sdate = json.getString("action_date");   			
-			//	String tenantname = json.getString("tenant_name");
-				String tenantname = "";
-				String sdesc = json.getString("description");
-				String samount = json.getString("amount");
-				 sbalance = json.getString("balance");
-				 
-	String[] arr_name = tenantname.split(" ");
-						if(arr_name.length>0){
-							tenantname=arr_name[0];
-						}
-						
-	String[] arr_desc = sdesc.split(" ");
-						if(arr_name.length>0){
-							sdesc=arr_desc[0];
-						}					
-				//  hashmap for single match
-		if(tenantname==null || tenantname=="null")tenantname=" ";
-		///
-				
-		Float amounts=Float.parseFloat(samount);
-		Float amountbalance=Float.parseFloat(sbalance);	
-		DecimalFormat df = new DecimalFormat("#,###.00");
-		df.setMaximumFractionDigits(2);
-		samount = df.format(amounts);	
-		sbalance = df.format(amountbalance);
-		
-				//  hashmap for single match
-				 HashMap<String, String> statement_item = new HashMap<String, String>();
-				 // adding each child node to HashMap key => value                        
-							statement_item.put(TAG_DATE, sdate);						
-							statement_item.put(TAG_DESC, sdesc);
-						   // statement_item.put(TAG_TENANTNAME, tenantname);
-							statement_item.put(TAG_AMOUNT, samount);
-							statement_item.put(TAG_BALANCE, sbalance);
-							/*
-							if(i==(j.length()-1)){								
-							statement_item.put(TAG_DATE, "");						
-							statement_item.put(TAG_DESC, "");
-						  //  statement_item.put(TAG_TENANTNAME, "");
-							statement_item.put(TAG_AMOUNT, "BALANCE");						
-							statement_item.put(TAG_BALANCE, sbalance);
-							}*/
-							statementList.add(statement_item);
-						ft=ft+1;
-							
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}		
-		}	
-		HashMap<String, String> statement_item2 = new HashMap<String, String>();
-		HashMap<String, String> statement_item3 = new HashMap<String, String>();
-				statement_item2.put(TAG_DATE, "");						
-				statement_item2.put(TAG_DESC, "");
-			  //  statement_item.put(TAG_TENANTNAME, "");
-				statement_item2.put(TAG_AMOUNT, "BALANCE");						
-				statement_item2.put(TAG_BALANCE, sbalance);
-				statementList.add(statement_item2);
-				
-				statement_item3.put(TAG_DATE, "");						
-				statement_item3.put(TAG_DESC, "");			 
-				statement_item3.put(TAG_AMOUNT, "");						
-				statement_item3.put(TAG_BALANCE, "");
-				statementList.add(statement_item3);
-							
-		ListAdapter adapter = new SimpleAdapter(
-						Statements.this, statementList,
-						R.layout.list_statements, new String[] {
-			TAG_DATE, TAG_DESC,TAG_AMOUNT,TAG_BALANCE
-		}, new int[] { R.id.stDate,R.id.stDesc,R.id.stAmount,R.id.stBalance}
-		);
-		setListAdapter(adapter);
-		}
+    private void bindStatements(JSONArray rows) {
+        statementList.clear();
+        float debitTotal = 0f;
+        float creditTotal = 0f;
+        String lastBalance = "";
+        boolean unpaid = isUnpaid();
+        String wantedTenant = tenantId();
+        for (int i = 0; i < rows.length(); i++) {
+            JSONObject json = rows.optJSONObject(i);
+            if (json == null) {
+                continue;
+            }
+            if (unpaid && ReportSupport.filled(wantedTenant)) {
+                String rowId = ReportSupport.opt(json, "ID", "tenant_identifier");
+                if (!wantedTenant.equals(rowId)) {
+                    continue;
+                }
+            }
+            HashMap<String, String> item = new HashMap<>();
+            if (unpaid) {
+                item.put("tenant_id", ReportSupport.opt(json, "ID", "tenant_identifier"));
+                item.put("tenant_name", json.optString("tenant_name"));
+                item.put("tenant_tel", json.optString("tenant_tel"));
+                item.put("status", json.optString("active"));
+                lastBalance = ReportSupport.money(json.optString("balance"));
+                item.put("balance", lastBalance);
+                debitTotal += ReportSupport.moneyValue(json.optString("balance"));
+            } else {
+                String desc = json.optString("description");
+                String amount = json.optString("amount");
+                boolean debit = ReportSupport.isDebitDescription(desc);
+                boolean credit = ReportSupport.isCreditDescription(desc);
+                if (debit) {
+                    debitTotal += ReportSupport.moneyValue(amount);
+                }
+                if (credit) {
+                    creditTotal += ReportSupport.moneyValue(amount);
+                }
+                lastBalance = ReportSupport.money(json.optString("balance"));
+                item.put("date", json.optString("action_date"));
+                item.put("tenant", json.optString("tenant_name"));
+                item.put("desc", desc);
+                item.put("debit", debit ? ReportSupport.money(amount) : "-");
+                item.put("credit", credit ? ReportSupport.money(amount) : "-");
+                item.put("balance", lastBalance);
+            }
+            statementList.add(item);
+        }
+        if (!statementList.isEmpty()) {
+            HashMap<String, String> footer = new HashMap<>();
+            if (unpaid) {
+                footer.put("tenant_id", "");
+                footer.put("tenant_name", "TOTAL");
+                footer.put("tenant_tel", "");
+                footer.put("status", "");
+                footer.put("balance", ReportSupport.money(String.valueOf(debitTotal)));
+            } else {
+                footer.put("date", "");
+                footer.put("tenant", "TOTAL");
+                footer.put("desc", "");
+                footer.put("debit", ReportSupport.money(String.valueOf(debitTotal)));
+                footer.put("credit", ReportSupport.money(String.valueOf(creditTotal)));
+                footer.put("balance", lastBalance);
+            }
+            ReportSupport.markFooter(footer);
+            statementList.add(footer);
+        }
+        if (unpaid && ReportSupport.filled(wantedTenant)) {
+            table.setEmpty("No unpaid balance for " + ReportSupport.spinnerName(spnTenant) + ".");
+        } else if (unpaid) {
+            table.setEmpty("No unpaid balances for all tenants.");
+        } else {
+            table.setEmpty("No statement lines for this tenant.");
+        }
+        table.setRows(statementList);
+        updateScope();
+    }
 
+    private void bindDebts(JSONArray rows) {
+        statementList.clear();
+        float total = 0f;
+        for (int i = 0; i < rows.length(); i++) {
+            JSONObject json = rows.optJSONObject(i);
+            if (json == null) {
+                continue;
+            }
+            HashMap<String, String> item = new HashMap<>();
+            item.put("tenant_tel", json.optString("tenant_tel"));
+            item.put("tenant_name", json.optString("tenant_name"));
+            item.put("unit_name", ReportSupport.opt(json, "unit_name"));
+            item.put("balance", ReportSupport.money(json.optString("balance")));
+            total += ReportSupport.moneyValue(json.optString("balance"));
+            statementList.add(item);
+        }
+        if (!statementList.isEmpty()) {
+            HashMap<String, String> footer = new HashMap<>();
+            footer.put("tenant_tel", "");
+            footer.put("tenant_name", "TOTAL");
+            footer.put("unit_name", "");
+            footer.put("balance", ReportSupport.money(String.valueOf(total)));
+            ReportSupport.markFooter(footer);
+            statementList.add(footer);
+        }
+        table.setEmpty("No debts for this property.");
+        table.setRows(statementList);
+        updateScope();
+    }
+
+    private void handleAction(String action) {
+        Map<String, String> params = new HashMap<>();
+        String script;
+        String filename;
+        if (isUnpaid() && ReportSupport.filled(tenantId())) {
+            params.put("tenantid", tenantId());
+            params.put("startdate", startdate);
+            params.put("enddate", enddate);
+            params.put("reportype", "All");
+            params.put("ownerid", ownerId);
+            script = "printTenancyStatement.php";
+            filename = ReportSupport.pdfName("unpaid", startdate, enddate);
+        } else if (isDebtSummary() || isUnpaid()) {
+            if (isDebtSummary() && !ReportSupport.filled(propertycode)) {
+                UiNotifier.snack(this, "Select a property first.");
+                return;
+            }
+            params.put("ownerid", ownerId);
+            params.put("pcode", propertycode == null ? "" : propertycode);
+            params.put("enddate", enddate);
+            params.put("tenantid", tenantId());
+            params.put("debttype", isDebtSummary() ? selectValue() : "All");
+            script = "printTenancyDebts.php";
+            filename = ReportSupport.pdfName(isDebtSummary() ? "debt_summary" : "unpaid_all", startdate, enddate);
+        } else if (isStatementsChoice()) {
+            if (!ReportSupport.filled(tenantId())) {
+                UiNotifier.snack(this, "Select a tenant first.");
+                return;
+            }
+            params.put("tenantid", tenantId());
+            params.put("startdate", startdate);
+            params.put("enddate", enddate);
+            params.put("reportype", selectValue());
+            params.put("ownerid", ownerId);
+            script = "printTenancyStatement.php";
+            filename = ReportSupport.pdfName("statement", startdate, enddate);
+        } else {
+            UiNotifier.snack(this, "Choose Statements or Debt Summary first.");
+            return;
+        }
+        ReportSupport.handlePdfAction(this, action, ReportSupport.withQuery(conf.getSERVERURL() + script, params), filename);
+    }
 }

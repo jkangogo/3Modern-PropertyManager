@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="page_background">#0E1616</color>
+    <color name="surface">#182222</color>
+    <color name="surface_muted">#1F2C2C</color>
+    <color name="text_primary">#F3F7F7</color>
+    <color name="text_secondary">#A9B8B7</color>
+    <color name="divider">#2C3C3B</color>
+    <color name="windowBackground">#0E1616</color>
+    <color name="teal_wash">#17302F</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="light_gray">#2C3C3B</color>
+    <color name="hero_on_primary">#B3FFFFFF</color>
+    <color name="hero_on_primary_strong">#CCFFFFFF</color>
+    <color name="table_header_text">#8FD9D3</color>
+</resources>

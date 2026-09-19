@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- HTTPS is preferred. Cleartext is limited to the current API host until a certificate is installed. -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">3modernsystems.co.ke</domain>
+        <domain includeSubdomains="true">212.71.251.143</domain>
+    </domain-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

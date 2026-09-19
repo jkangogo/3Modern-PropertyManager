@@ -1,215 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/page_background"
     android:orientation="vertical"
     tools:context=".Holder.MessageActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/bg_toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" >
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
         <TextView
             android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:text="3P SMS"/>
+            style="@style/Widget.PManager.ToolbarTitle"
+            android:text="Send a message" />
     </androidx.appcompat.widget.Toolbar>
-    <RelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_top">
-        <ScrollView
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <com.threemsystems.rentmanager.BoundedWidthLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TableLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content"
+            app:boundedMaxWidth="@dimen/form_max_width">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp">
-                <TableRow>
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/teal_wash"
+                app:strokeWidth="1dp">
 
-				<LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                        <TextView
-                            android:layout_width="115dp"
-                            android:layout_height="match_parent"
-                            android:text="Property:" />
+                    <TextView
+                        style="@style/Widget.PManager.FormCaption"
+                        android:layout_marginTop="0dp"
+                        android:text="Recipients" />
 
-                        <Spinner
-                            android:id="@+id/spnPropertysms"
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"/>
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Property" />
 
+                    <Spinner
+                        android:id="@+id/spnPropertysms"
+                        style="@style/Widget.PManager.FilterSpinner" />
 
-                    </LinearLayout>
-					</TableRow>
-					<TableRow>
-					<LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Unit" />
 
-                        <TextView
-                            android:layout_width="115dp"
-                            android:layout_height="match_parent"
-                            android:text="Unit:" />
+                    <Spinner
+                        android:id="@+id/spnUnitsms"
+                        style="@style/Widget.PManager.FilterSpinner" />
 
-                        <Spinner
-                            android:id="@+id/spnUnitsms"
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"/>
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Tenant(s)" />
 
+                    <Spinner
+                        android:id="@+id/spnRecipient"
+                        style="@style/Widget.PManager.FilterSpinner" />
 
-                    </LinearLayout>
-					 </TableRow>
-				
-				<TableRow>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Month" />
 
-                        <TextView
-                            android:layout_width="115dp"
-                            android:layout_height="match_parent"
-                            android:text="Tenant(s):" />
+                    <EditText
+                        android:id="@+id/etsmsmonth"
+                        style="@style/Widget.PManager.FilterField"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        android:hint="Invoice or payment month" />
 
-                        <Spinner
-                            android:id="@+id/spnRecipient"
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"/>
+                    <EditText
+                        android:id="@+id/etRecipient"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:visibility="gone"
+                        android:textColor="@color/black" />
 
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="8dp"
+                        android:text="SMS type" />
 
-                    </LinearLayout>
-                </TableRow>
-				
-                <TableRow>
+                    <Spinner
+                        android:id="@+id/spMSGtype"
+                        style="@style/Widget.PManager.FilterSpinner" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/teal_wash"
+                app:strokeWidth="1dp">
 
-                        <TextView
-                            android:layout_width="115dp"
-                            android:layout_height="match_parent"
-                            android:text="Month :" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                        <EditText
-                            android:id="@+id/etsmsmonth"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textColor="@color/black"
-							android:inputType="datetime"
-                            android:text="To :" />
+                    <TextView
+                        style="@style/Widget.PManager.FormCaption"
+                        android:layout_marginTop="0dp"
+                        android:text="Message" />
 
-                        <EditText
-                            android:id="@+id/etRecipient"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textColor="@color/black"
-                            android:background="@android:drawable/editbox_dropdown_light_frame" />
+                    <EditText
+                        android:id="@+id/etMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_input"
+                        android:gravity="top|start"
+                        android:hint="Write the SMS that tenants will receive"
+                        android:inputType="textMultiLine"
+                        android:lines="8"
+                        android:maxLines="10"
+                        android:minLines="6"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-
-                    </LinearLayout>
-                </TableRow>
-				<TableRow>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="115dp"
-                            android:layout_height="match_parent"
-                            android:text="SMS Type:" />
-
-                        <Spinner
-                            android:id="@+id/spMSGtype"
-                            android:layout_width="190dp"
-                            android:layout_height="match_parent"/>
-
-
-                    </LinearLayout>
-                </TableRow>
-                <TableRow >
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:layout_marginTop="40dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="115dp"
-                            android:layout_height="match_parent"
-                            android:text="MESSAGE:" />
-                    </LinearLayout>
-                </TableRow>
-                <TableRow >
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="250dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/etMessage"
-                            android:inputType="textMultiLine"
-                            android:lines="8"
-                            android:minLines="6"
-                            android:gravity="top|left"
-                            android:maxLines="10"
-                            android:textColor="@color/black"
-                            android:scrollbars="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="250dp"
-                            android:background="@android:drawable/editbox_dropdown_light_frame" />
-
-
-                    </LinearLayout>
-                </TableRow>
-
-                <TableRow>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16sp"
-                        android:gravity="right"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnSend"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="2dp"
-                            android:background="@drawable/mybutton"
-                            android:text="Send SMS" />
-
-                    </LinearLayout>
-
-                </TableRow>
-            </TableLayout>
-        </ScrollView>
-    </RelativeLayout>
-</RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSend"
+                style="@style/Widget.PManager.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Send SMS" />
+        </LinearLayout>
+        </com.threemsystems.rentmanager.BoundedWidthLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,50 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.threemsystems.rentmanager">
-	
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />	
-	<uses-permission android:name="android.permission.SEND_SMS"/> 
-    
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
-        android:allowBackup="true"
+        android:name="com.threemsystems.rentmanager.PManagerApp"
+        android:allowBackup="false"
         android:icon="@drawable/tpmicon"
         android:label="PManager"
+        android:resizeableActivity="true"
         android:roundIcon="@drawable/tpmicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThreePManager"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.threemsystems.rentmanager.Holder.MessageActivity" />
-        <activity android:name="com.threemsystems.rentmanager.Holder.Expenditure" />
-        <activity android:name="com.threemsystems.rentmanager.NewExpenditure" />
-        <activity android:name="com.threemsystems.rentmanager.JounalEntry" />
-        <activity android:name="com.threemsystems.rentmanager.NewInvoice" />
-        <activity android:name="com.threemsystems.rentmanager.Reports" />
-        <activity android:name="com.threemsystems.rentmanager.Holder.Statements" />
-        <activity android:name="com.threemsystems.rentmanager.Holder.Payments" />
-        <activity android:name="com.threemsystems.rentmanager.Holder.Invoices" />
-        <activity android:name="com.threemsystems.rentmanager.Holder.Tenancy" />
-        <activity android:name="com.threemsystems.rentmanager.Holder.Units" />
-        <activity android:name="com.threemsystems.rentmanager.Holder.Property" />
-        <activity android:name="com.threemsystems.rentmanager.AddBouncedPay" />
-        <activity android:name="com.threemsystems.rentmanager.AddPayment" />
-        <activity android:name="com.threemsystems.rentmanager.AddTenant" />
-        <activity android:name="com.threemsystems.rentmanager.AddUnit" />
-        <activity android:name="com.threemsystems.rentmanager.DataEntry" />
-        <activity android:name="com.threemsystems.rentmanager.AddProperty" />
-        <activity android:name="com.threemsystems.rentmanager.RegisterActivity" />
-        <activity android:name="com.threemsystems.rentmanager.MainActivity" />
-        <activity android:name="com.threemsystems.rentmanager.ResetPassword" />
-		<activity android:name="com.threemsystems.rentmanager.AddUnitService" />
-        <activity android:name="com.threemsystems.rentmanager.LoginActivity">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.Expenditure"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.NewExpenditure"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.JounalEntry"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.NewInvoice"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Reports"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.Statements"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.Payments"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.Invoices"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.Tenancy"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.Units"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.Holder.Property"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.AddPayment"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.AddTenant"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.AddUnit"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.DataEntry"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.AddProperty"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.ResetPassword"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.AddUnitService"
+            android:exported="false" />
+        <activity
+            android:name="com.threemsystems.rentmanager.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

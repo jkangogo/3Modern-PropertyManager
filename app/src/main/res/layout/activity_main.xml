@@ -1,143 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/page_background"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/bg_toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:text="PROPERTY MANAGER"/>
-    </androidx.appcompat.widget.Toolbar>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_top">
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
-        <androidx.cardview.widget.CardView
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/Widget.PManager.ToolbarTitle"
+            android:text="PManager" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <com.threemsystems.rentmanager.BoundedWidthLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="5dp"
-            app:cardCornerRadius="15dp"
-            android:layout_margin="0dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardMaxElevation="5dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:boundedMaxWidth="@dimen/hub_max_width">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/toolbar_top">
+                android:padding="@dimen/screen_padding">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/residential" />
-                </LinearLayout>
-                <HorizontalScrollView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/btnGrid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/btnDataentry"
-                                android:layout_width="195dp"
-                                android:layout_height="80dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/mybutton"
-                                android:padding="10dp"
-                                android:text="Data entry" />
-
-                            <Button
-                                android:id="@+id/btnReports"
-                                android:layout_width="195dp"
-                                android:layout_height="80dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/mybutton"
-                                android:padding="10dp"
-                                android:text="Reports" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <Button
-                                android:id="@+id/btnresetPassword"
-                                android:layout_width="195dp"
-                                android:layout_height="80dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginTop="0dp"
-                                android:background="@drawable/mybutton"
-                                android:padding="10dp"
-                                android:text="CHANGE PASSWORD" />
-
-                            <Button
-                                android:id="@+id/btnExit"
-                                android:layout_width="195dp"
-                                android:layout_height="80dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/mybutton"
-                                android:padding="10dp"
-                                android:text="LOG OUT" />
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"/>
-
-                    </LinearLayout>
-
-                </HorizontalScrollView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:background="@drawable/bg_hero"
+                    android:orientation="vertical"
+                    android:padding="@dimen/hero_padding">
 
                     <TextView
-                        android:id="@+id/copyrightTV2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PORTFOLIO"
+                        android:textAllCaps="true"
+                        android:textColor="@color/hero_on_primary"
+                        android:textSize="11sp"
+                        android:letterSpacing="0.12"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:id="@+id/tvGreeting"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:gravity="center"
-                        android:text=""
-                        android:textSize="12sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Welcome"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvGreetingSub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Your property workspace"
+                        android:textColor="@color/hero_on_primary_strong"
+                        android:textSize="14sp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/tile_gap"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/surface"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/bg_icon_circle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_tile_city"
+                                app:tint="@color/teal_700" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:text="Properties"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tvStatProperties"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="—"
+                                android:textColor="@color/teal_700"
+                                android:textSize="26sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/tile_gap"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/surface"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/bg_icon_circle"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_tile_reports"
+                                app:tint="@color/teal_700" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:text="Status"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tvStatStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="Online"
+                                android:textColor="@color/text_primary"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvDashboardHint"
+                    style="@style/Widget.PManager.SectionHint"
+                    android:layout_marginTop="14dp"
+                    android:text="Record activity or open reports" />
+
+                <TextView
+                    style="@style/Widget.PManager.SectionTitle"
+                    android:text="Workspace" />
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/btnGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:alignmentMode="alignBounds"
+                    app:columnCount="@integer/hub_columns"
+                    app:orientation="horizontal"
+                    app:useDefaultMargins="false">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDataentry"
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Data entry"
+                        app:icon="@drawable/ic_tile_data_entry"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReports"
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Reports"
+                        app:icon="@drawable/ic_tile_reports"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnresetPassword"
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Change password"
+                        app:icon="@drawable/ic_tile_password"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnExit"
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Log out"
+                        app:icon="@drawable/ic_tile_logout"
+                        app:iconTint="@color/destructive"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+                </androidx.gridlayout.widget.GridLayout>
+
+                <TextView
+                    android:id="@+id/copyrightTV2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
-
-
-</RelativeLayout>
+        </com.threemsystems.rentmanager.BoundedWidthLayout>
+    </ScrollView>
+</LinearLayout>

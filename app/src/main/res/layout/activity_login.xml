@@ -1,151 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_top"
+    android:fillViewport="true"
+    android:background="@color/page_background"
+    android:clipToPadding="false"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" >
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:text="PROPERTY MANAGER"/>
-    </androidx.appcompat.widget.Toolbar>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_top">
+        android:clipChildren="false"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/L1">
+            android:background="@drawable/bg_toolbar"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="48dp"
+            android:paddingBottom="56dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/bg_icon_circle"
+                android:contentDescription="@string/app_name"
+                android:padding="12dp"
+                android:src="@drawable/ic_app_mark"
+                app:tint="@color/teal_700" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:gravity="center"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                android:textColor="#000000"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/L2"
-            android:layout_below="@+id/L1"
-            android:orientation="horizontal">
-            <ProgressBar
-                android:id="@+id/progress"
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:layout_marginTop="14dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.04"
+                android:text="PManager"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Enterprise property workspace"
+                    android:textColor="@color/hero_on_primary_strong"
+                    android:textSize="14sp" />
         </LinearLayout>
 
-        <RelativeLayout
+        <com.threemsystems.rentmanager.BoundedWidthLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_below="@+id/L2">
-            <androidx.cardview.widget.CardView
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:boundedMaxWidth="@dimen/form_max_width">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_card_margin"
+            android:layout_marginEnd="@dimen/login_card_margin"
+            android:layout_marginTop="-28dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/surface"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="5dp"
-                app:cardCornerRadius="15dp"
-                android:layout_margin="0dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardMaxElevation="5dp"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true">
-                <LinearLayout
+                android:orientation="vertical"
+                android:padding="22dp">
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <EditText
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Sign in"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Use your owner account to manage properties, tenants, and collections."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/teal_700"
+                    android:visibility="gone" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.PManager.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone number or username">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etusername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/etusername"
-                        android:padding="10dp"
-                        android:layout_marginTop="75dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginLeft="30dp"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-						android:text=""
+                        android:autofillHints="username"
                         android:drawableEnd="@drawable/ic_login"
-                        android:background="@android:drawable/editbox_dropdown_light_frame"
-                        android:hint="@string/username"/>
+                        android:drawableTint="@color/teal_700"
+                        android:inputType="textNoSuggestions"
+                        android:singleLine="true"
+                        android:textColor="@color/text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.PManager.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/teal_700">
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/password"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginLeft="30dp"
-                        android:padding="10dp"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:saveEnabled="false"
                         android:singleLine="true"
-                        android:textColor="@color/black"
-						android:text=""
-                        app:passwordToggleEnabled="true"
-                        android:drawableEnd="@drawable/ic_pass"
-                        android:background="@android:drawable/editbox_dropdown_light_frame"
-                        android:inputType="textPassword" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_margin="10sp"
-                        android:gravity="center">
-                        <Button
-                            android:id="@+id/btnLogin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Login"
-                            android:background="@drawable/mybutton" />
-                        <Button
-                            android:id="@+id/btnRegister"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Register"
-                            android:background="@drawable/mybutton"
-                            android:layout_margin="4dp"/>
-                        <Button
-                            android:id="@+id/btnCancel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="EXIT"
-                            android:background="@drawable/mybutton"/>
+                        android:textColor="@color/text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/copyrightTV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:text=""
-                        />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLogin"
+                    style="@style/Widget.PManager.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="Sign in" />
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegister"
+                    style="@style/Widget.PManager.Button.Secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Create an account" />
 
-        </RelativeLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancel"
+                    style="@style/Widget.PManager.Button.Destructive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Exit" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
-
-
-</RelativeLayout>
+        <TextView
+            android:id="@+id/copyrightTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="28dp"
+            android:gravity="center"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+        </LinearLayout>
+        </com.threemsystems.rentmanager.BoundedWidthLayout>
+    </LinearLayout>
+</ScrollView>

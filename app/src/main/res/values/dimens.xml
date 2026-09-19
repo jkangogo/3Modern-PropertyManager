@@ -1,14 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	    <!-- Default screen margins, per the Android Design guidelines. -->
-
-	    <dimen name="activity_horizontal_margin">16dp</dimen>
-
-	    <dimen name="activity_vertical_margin">16dp</dimen>
-
-	    <dimen name="font_size_verysmall">10sp</dimen>
-
-	    <dimen name="font_size_small">12sp</dimen>
-
-	    <dimen name="font_size_medium">20sp</dimen>
-
-	</resources>
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="hero_padding">20dp</dimen>
+    <dimen name="tile_height">128dp</dimen>
+    <dimen name="tile_gap">6dp</dimen>
+    <dimen name="form_max_width">560dp</dimen>
+    <dimen name="hub_max_width">4096dp</dimen>
+    <dimen name="filter_card_margin">8dp</dimen>
+    <dimen name="filter_card_padding">8dp</dimen>
+    <dimen name="report_min_width">280dp</dimen>
+    <dimen name="login_card_margin">20dp</dimen>
+</resources>

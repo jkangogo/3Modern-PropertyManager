@@ -1,0 +1,36 @@
+---
+description: Always deploy mobile PHP to threepmobileserver after edits
+alwaysApply: true
+---
+
+# Deploy mobile PHP after every change
+
+PManager’s API is PHP on the live host. After any PHP edit, upload it in the same turn. Do not leave local-only PHP.
+
+## Target (only this folder)
+
+- Local source: `/Users/kangogojoel/StudioProjects/3modernsystems-server/threepmobileserver-src/`
+- Remote: `root@212.71.251.143:/var/www/html/threepmobileserver/`
+- SSH port: **38000** (not 22)
+- App URL: `http://3modernsystems.co.ke/threepmobileserver/`
+
+## Never
+
+- Never overwrite `db.php`
+- Never edit or upload `/var/www/html/threepmanager/` (web Ext JS)
+- Never commit `db.php` or SSH/DB passwords
+
+## Upload command
+
+```bash
+export SSHPASS='<server pass from user>'
+RSH='sshpass -e ssh -p 38000 -o StrictHostKeyChecking=accept-new -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+rsync -avz --no-owner --no-group -e "$RSH" \
+  --exclude 'db.php' --exclude '3PM.apk' --exclude '*.apk' \
+  /Users/kangogojoel/StudioProjects/3modernsystems-server/threepmobileserver-src/ \
+  root@212.71.251.143:/var/www/html/threepmobileserver/
+```
+
+If Auto-review blocks a password rsync, retry with approval. Confirm remotely with `ls -l` on the uploaded files and that `db.php` mtime is unchanged.
+
+If PHP was changed in this session and not uploaded, upload before finishing.

@@ -1,466 +1,243 @@
 package com.threemsystems.rentmanager.Holder;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-import java.util.Map;import java.util.HashMap;
-import android.content.SharedPreferences;
-import java.util.ArrayList;
 
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
-import com.android.volley.toolbox.Volley;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
-import android.app.ListActivity;
-
-import com.android.volley.RequestQueue ;
-import com.threemsystems.rentmanager.spinnerItems;
+import com.android.volley.toolbox.StringRequest;
 import com.threemsystems.rentmanager.Config;
+import com.threemsystems.rentmanager.DateUi;
+import com.threemsystems.rentmanager.FormRequest;
+import com.threemsystems.rentmanager.R;
+import com.threemsystems.rentmanager.ReportColumn;
+import com.threemsystems.rentmanager.ReportSupport;
+import com.threemsystems.rentmanager.ReportTableHost;
+import com.threemsystems.rentmanager.ScreenNav;
+import com.threemsystems.rentmanager.SessionManager;
+import com.threemsystems.rentmanager.UiNotifier;
+import com.threemsystems.rentmanager.VolleyErrors;
+import com.threemsystems.rentmanager.spinnerItems;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.threemsystems.rentmanager.R;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.Calendar;
+public class Tenancy extends AppCompatActivity {
+    Spinner spnProperty, spnUnit, spnTenant, spnAction;
+    ArrayList<spinnerItems> spinnerlist = new ArrayList<>();
+    ArrayList<spinnerItems> unitspinnerlist = new ArrayList<>();
+    ArrayList<spinnerItems> tenantspinnerlist = new ArrayList<>();
+    ArrayList<HashMap<String, String>> tenantList = new ArrayList<>();
+    String pcode = "";
+    String unitcode = "";
+    String ownerId;
+    String startdate = "";
+    String enddate = "";
+    Config conf = Config.getInstance();
+    ReportTableHost table;
 
-public class Tenancy extends ListActivity {
-    DatePickerDialog picker, picker2;
-	Spinner spnProperty, spnUnit,spnTenant,spnAction;
-ArrayList<com.threemsystems.rentmanager.spinnerItems> spinnerlist = new ArrayList<>();
-ArrayList<com.threemsystems.rentmanager.spinnerItems> unitspinnerlist = new ArrayList<>();
-ArrayList<com.threemsystems.rentmanager.spinnerItems> tenantspinnerlist = new ArrayList<>();
-ArrayList<HashMap<String, String>> tenantList = new ArrayList<HashMap<String, String>>();
-	String TAG_COUNT="tcount";
-	String TAG_TENANTNAME="t_name";
-    String TAG_UNAME="u_name";
-    String TAG_TEL="t_tel";
-	String pcode, unitcode,unitname,idNo;			 
-	JSONArray result; SharedPreferences propertypref ;
-	String startdate,enddate,dateflag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tenancy);
+        ScreenNav.bind(this);
 
         EditText dateStart = findViewById(R.id.datestart);
         EditText dateEnd = findViewById(R.id.dateend);
-         spnProperty = findViewById(R.id.spnpr);
-         spnUnit = findViewById(R.id.spnunitt);
-         spnTenant = findViewById(R.id.spntenant);
-         spnAction = findViewById(R.id.spnaction);
+        spnProperty = findViewById(R.id.spnpr);
+        spnUnit = findViewById(R.id.spnunitt);
+        spnTenant = findViewById(R.id.spntenant);
+        spnAction = findViewById(R.id.spnaction);
+        ownerId = SessionManager.get(this).getOwnerId();
+        table = ReportTableHost.attach(this).setEmpty("No tenants match these filters.");
+        table.setColumns(
+                ReportColumn.center("#", "#", 48),
+                ReportColumn.of("id_no", "ID No.", 110),
+                ReportColumn.of("names", "Names", 150),
+                ReportColumn.of("tel", "Tel.", 110),
+                ReportColumn.of("property", "Property", 140),
+                ReportColumn.of("unit", "Unit", 90),
+                ReportColumn.of("vehicle", "Vehicle", 100),
+                ReportColumn.of("from", "From", 100),
+                ReportColumn.of("to", "To", 100),
+                ReportColumn.money("rent", "Rent", 90),
+                ReportColumn.money("deposit", "Deposit", 90),
+                ReportColumn.of("status", "Status", 90)
+        );
 
-        dateStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                picker = new DatePickerDialog(Tenancy.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-						startdate=year  + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-                    }
-                }, year, month, day);
-                picker.show();
-
-            }
+        dateStart.setHint("Start date");
+        dateEnd.setHint("End date");
+        DateUi.bindPicker(this, dateStart, iso -> {
+            startdate = iso;
+            loadTenantsList();
+        });
+        DateUi.bindPicker(this, dateEnd, iso -> {
+            enddate = iso;
+            loadTenantsList();
         });
 
-       dateEnd.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               final Calendar cldr = Calendar.getInstance();
-               int day = cldr.get(Calendar.DAY_OF_MONTH);
-               int month = cldr.get(Calendar.MONTH);
-               int year = cldr.get(Calendar.YEAR);
-	   com.threemsystems.rentmanager.Config conf = com.threemsystems.rentmanager.Config.getInstance();
-		String url = conf.getSERVERURL()+"select_tenants.php";
-               // date picker dialog
-               picker2 = new DatePickerDialog(Tenancy.this, new DatePickerDialog.OnDateSetListener() {
-                   @Override
-                   public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                       dateEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-					   enddate=year  + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-					 if(startdate!="" && enddate!=""){
-						 tenantList.clear();
-		//url, t_id, t_name, o_id,p_code, u_code, s_date, e_date,  d_flag		
-		getTenantsListData(url,"","",idNo,pcode,"",startdate,enddate,"YES");
-		Toast.makeText(getApplicationContext(), "dates:="+startdate+" / "+enddate, Toast.LENGTH_LONG).show();		
-					 }else{
-						 //dates are not well formated
-	Toast.makeText(getApplicationContext(), "Ensure that the dates are well formated", Toast.LENGTH_LONG).show();	
-					 }					 
-                   }
-               }, year, month, day);
-               picker2.show();
-
-           }
-       });
-
-        //ArrayList<String> PropertyList = new ArrayList<>();
-        //PropertyList.add("");
-        //ArrayAdapter<String> propertyListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PropertyList);
-        //propertyListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spnProperty.setAdapter(propertyListAdapter);
-        
-		spnProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-         //       String PropertyItem = propertyListAdapter.getItem(position).toString();
-		
-		 com.threemsystems.rentmanager.spinnerItems spinerproperty = ( com.threemsystems.rentmanager.spinnerItems) parent.getSelectedItem();
-         pcode=spinerproperty.getId();
-            
-		com.threemsystems.rentmanager.Config conf = com.threemsystems.rentmanager.Config.getInstance();
-		String url = conf.getSERVERURL()+"select_tenants.php";
-		String url2 = conf.getSERVERURL()+"list_propertyunits.php";//get the units associated with
-		String url3 = conf.getSERVERURL()+"list_tenantidname.php";
-		unitspinnerlist.clear();tenantspinnerlist.clear();  tenantList.clear();
-	 	//getTenantsListData(url,pcode,"alltenants","allunits");
-//url, t_id, t_name, o_id,p_code, u_code, s_date, e_date,  d_flag		
-		getTenantsListData(url,"","",idNo,pcode,"","","","");		
-		//get the units associated with the property
-		getUnitsspinnerData(url2,pcode);	
-		
+                pcode = ReportSupport.spinnerId(spnProperty);
+                unitcode = "";
+                loadUnits();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
-			
         });
-		
-
-       //ArrayList<String> UnitList = new ArrayList<>();
-        //UnitList.add("");
-        //ArrayAdapter<String> UnitListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, UnitList);
-      //  UnitListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      // spnUnit.setAdapter(UnitListAdapter);
-		
         spnUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-             //   String ucode = UnitListAdapter.getItem(position).toString();
-				tenantspinnerlist.clear();
-			 tenantList.clear();
-             spinnerItems spinerunitproperty = (spinnerItems) parent.getSelectedItem();
-             unitcode=spinerunitproperty.getId();
-			 unitname=spinerunitproperty.getName();	
-           //  Toast.makeText(parent.getContext(), "Selected: " + unitcode, Toast.LENGTH_LONG).show();				
-				Config conf = com.threemsystems.rentmanager.Config.getInstance();
-				String url = conf.getSERVERURL()+"list_tenantidname.php";
-				String url2 = conf.getSERVERURL()+"select_tenants.php";
-				getTenantsspinnerData(url,unitcode)	;
-//url, t_id, t_name, o_id,p_code, u_code, s_date, e_date,  d_flag				
-				getTenantsListData(url2,"","",idNo,"",unitcode,"","","");	
+                unitcode = ReportSupport.spinnerId(spnUnit);
+                loadTenantChoices();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
-       // ArrayList<String> TenantList = new ArrayList<>();
-       // TenantList.add("");
-       // ArrayAdapter<String> tenantListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, TenantList);
-        //tenantListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       // spnTenant.setAdapter(tenantListAdapter);
-        
-		spnTenant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnTenant.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               // String TenantItem = tenantListAdapter.getItem(position).toString();
-				
-		spinnerItems spinerunitproperty = (spinnerItems) parent.getSelectedItem();
-           String  tenantid=spinerunitproperty.getId();
-			
-           // Toast.makeText(parent.getContext(), "Selected: " + tenantid, Toast.LENGTH_LONG).show();				
-				Config conf = com.threemsystems.rentmanager.Config.getInstance();
-				String url = conf.getSERVERURL()+"list_tenantidname.php";
-				String url2 = conf.getSERVERURL()+"select_tenants.php";
-				//getTenantsspinnerData(url,unitcode)	;	
-				// tenantList.clear();
-		//url, t_id, t_name, o_id,p_code, u_code, s_date, e_date,  d_flag
-				getTenantsListData(url2,tenantid,"",idNo,pcode,unitcode,"","","");
+                loadTenantsList();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
-        ArrayList<String> ActionList = new ArrayList<>();
-        ActionList.add("");
-        ArrayAdapter<String> actionListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ActionList);
-        actionListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnAction.setAdapter(actionListAdapter);
-        spnAction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ReportSupport.bindPdfActions(spnAction, new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String ActionItem = actionListAdapter.getItem(position).toString();
+                handleAction(ReportSupport.selectedAction(parent));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-	propertypref = getSharedPreferences("user_details", MODE_PRIVATE);				
-	idNo=propertypref.getString("idNo","MisingID");	         
-	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-	String url = conf.getSERVERURL()+"list_properties.php";	
-	getPropertyspinnerData(url,idNo);
-		
-    }
-	//This to display the property on the spinner based on the owner id
-	private void getPropertyspinnerData(String url,String owner_id){	
-    StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    JSONObject j = null;
-                    try {
-                        j = new JSONObject(response);
-                        result = j.getJSONArray("result");
-                        getResult(result);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
-            })
-		{
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String,String> map = new HashMap<String,String>();
-            map.put("owner_id",owner_id);          
-            return map;
-        }
-    };	
-    RequestQueue requestQueue = Volley.newRequestQueue(this);
-    requestQueue.add(stringRequest);
-}
-private void getResult(JSONArray j){	
-    for(int i=0;i<j.length();i++){
-        try {
-            JSONObject json = j.getJSONObject(i);
-           // properties.add(json.getString(json.getString(TAG_propertyname));			
-		spinnerlist.add(new  com.threemsystems.rentmanager.spinnerItems(json.getString("property_code"), json.getString("property_name")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-   // property_spinner.setAdapter(new ArrayAdapter<String>(AddUnit.this, android.R.layout.simple_spinner_dropdown_item, properties));
-	 spnProperty.setAdapter(new ArrayAdapter< spinnerItems>(Tenancy.this, android.R.layout.simple_spinner_dropdown_item, spinnerlist));
-	 
-}
-//get unitsspinner data
 
+        loadNamed(conf.getSERVERURL() + "list_properties.php", ownerId, "owner_id", "properties");
+    }
 
-//This to display the tenancy based on the property code,units or tenant
-//$id,$name,$ownerid,$property,$unit,$sdate,$edate,$dateflag
-private void getTenantsListData(String url,String t_id,String t_name,String o_id,
-String p_code,String u_code,String s_date,String e_date, String d_flag){	
-    StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    JSONObject j = null;
-                    try {
-                        j = new JSONObject(response);
-                        result = j.getJSONArray("result");
-                        getTenancyResult(result);
-						//loadData(result);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
-            })
-			{
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String,String> map = new HashMap<String,String>();
-             map.put("tenant_identifier",t_id);  
-			map.put("tenant_name",t_name);  
-			map.put("owner_id",o_id); 
-			map.put("property",p_code); 
-			map.put("unit",u_code); 
-			map.put("startdate",s_date);
-			map.put("enddate",e_date); 
-			map.put("dateflag",d_flag); 		
-			
-            return map;
-        }
-    };	
-    RequestQueue requestQueue = Volley.newRequestQueue(this);
-    requestQueue.add(stringRequest);
-}
-private void getTenancyResult(JSONArray j){	
-int ft=0;
-  tenantList.clear();
-   // map.clear();
-    for(int i=0;i<j.length();i++){
-			
-        try {        	
-		JSONObject json = j.getJSONObject(i);
-			String count = String.valueOf(i+1);     
-			String tenantname = json.getString("tenant_name");                       
-			String tenanttel = json.getString("tenant_tel");                       
-			String unitname = json.getString("unit_name");
-			
-	if(unitname.length()>10){
-				unitname= unitname.substring(0, 10);
-			 }
-			 
-	String[] arr_name = tenantname.split(" ");
-			 		if(arr_name.length>1){
-						tenantname=arr_name[0] + " "+ arr_name[1];
-					}	
-            //  hashmap for single match
-	if(tenantname==null || tenantname=="null") tenantname=" ";
-            //  hashmap for single match
-             HashMap<String, String> tenant_item = new HashMap<String, String>();
-             // adding each child node to HashMap key => value                        
-						tenant_item.put(TAG_COUNT, count);
-                        tenant_item.put(TAG_UNAME, unitname);
-                        tenant_item.put(TAG_TENANTNAME, tenantname);
-						tenant_item.put(TAG_TEL, tenanttel);
-						tenantList.add(tenant_item);
-					ft=ft+1;
-						
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-		
-    }	
-	ListAdapter adapter = new SimpleAdapter(
-                    Tenancy.this, tenantList,
-                    R.layout.list_tenants, new String[] {
-        TAG_COUNT, TAG_TENANTNAME,TAG_UNAME,TAG_TEL
-    }, new int[] { R.id.counttenantid,R.id.tName,R.id.tUnit,R.id.tTelephone}
-    );
-    setListAdapter(adapter);
-	
-//Toast.makeText(getApplicationContext(), String.valueOf(ft), Toast.LENGTH_LONG).show();    
-	  
-	} 
-	//Get spinner data for the units
-	private void getUnitsspinnerData(String url,String p_code){	
-    StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    JSONObject j = null;
-                    try {
-                        j = new JSONObject(response);
-                        result = j.getJSONArray("result");
-                        getSelectunitsResult(result);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
-            })
-			{
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String,String> map = new HashMap<String,String>();
-            map.put("property_code",p_code);          
-            return map;
-        }
-    };	
-    RequestQueue requestQueue = Volley.newRequestQueue(this);
-    requestQueue.add(stringRequest);
-}
-private void getSelectunitsResult(JSONArray j){	
-    for(int i=0;i<j.length();i++){
-        try {
-            JSONObject json = j.getJSONObject(i);
-           // properties.add(json.getString(json.getString(TAG_propertyname));			
-			unitspinnerlist.add(new spinnerItems(json.getString("unit_code"), json.getString("unit_name")));
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private String tenantId() {
+        return ReportSupport.spinnerId(spnTenant);
+    }
+
+    private String dateFlag() {
+        return ReportSupport.filled(startdate, enddate) ? "YES" : "";
+    }
+
+    private void loadUnits() {
+        loadNamed(conf.getSERVERURL() + "list_propertyunits.php", pcode, "property_code", "units");
+    }
+
+    private void loadTenantChoices() {
+        if (ReportSupport.filled(unitcode)) {
+            loadNamed(conf.getSERVERURL() + "list_tenantidname.php", unitcode, "unit_code", "tenants");
+        } else {
+            loadNamed(conf.getSERVERURL() + "list_tenantidnamebyowner.php", ownerId, "owner_id", "tenants");
         }
     }
-   // property_spinner.setAdapter(new ArrayAdapter<String>(AddUnit.this, android.R.layout.simple_spinner_dropdown_item, properties));
-	 spnUnit.setAdapter(new ArrayAdapter<spinnerItems>(Tenancy.this, android.R.layout.simple_spinner_dropdown_item, unitspinnerlist));
-}
-	
-	//Get spinner data for the tenants
-	private void getTenantsspinnerData(String url,String u_code){	
-    StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    JSONObject j = null;
-                    try {
-                        j = new JSONObject(response);
-                        result = j.getJSONArray("result");
-                        getTenantsResult(result);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
-            })
-			{
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String,String> map = new HashMap<String,String>();
-             map.put("unit_code",u_code); 	
-					 
-            return map;
-        }
-    };	
-    RequestQueue requestQueue = Volley.newRequestQueue(this);
-    requestQueue.add(stringRequest);
-}
-private void getTenantsResult(JSONArray j){	
-    for(int i=0;i<j.length();i++){
-        try {
-            JSONObject json = j.getJSONObject(i);
-           // properties.add(json.getString(json.getString(TAG_propertyname));			
-			tenantspinnerlist.add(new spinnerItems(json.getString("tenant_identifier"), json.getString("tenant_name")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+    private void loadNamed(String url, String value, String key, String kind) {
+        ReportSupport.loadRows(this, url, key, value, rows -> {
+            if ("properties".equals(kind)) {
+                ReportSupport.fillNamed(spnProperty, spinnerlist, rows,
+                        "property_code", "property_name", "All properties");
+            } else if ("units".equals(kind)) {
+                ReportSupport.fillNamed(spnUnit, unitspinnerlist, rows,
+                        "unit_code", "unit_name", "All units");
+            } else {
+                ReportSupport.fillNamed(spnTenant, tenantspinnerlist, rows,
+                        "tenant_identifier", "tenant_name", "All tenants");
+            }
+        });
     }
-   // property_spinner.setAdapter(new ArrayAdapter<String>(AddUnit.this, android.R.layout.simple_spinner_dropdown_item, properties));
-	 spnTenant.setAdapter(new ArrayAdapter<spinnerItems>(Tenancy.this, android.R.layout.simple_spinner_dropdown_item, tenantspinnerlist));
-}
+
+    private void loadTenantsList() {
+        StringRequest request = new FormRequest(conf.getSERVERURL() + "select_tenants.php",
+                response -> {
+                    ReportSupport.warnIfNotJson(Tenancy.this, response);
+                    bindRows(ReportSupport.resultArray(response));
+                },
+                error -> VolleyErrors.show(Tenancy.this, error)) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("tenant_identifier", tenantId());
+                map.put("tenant_name", "");
+                map.put("owner_id", ownerId);
+                map.put("property", pcode == null ? "" : pcode);
+                map.put("unit", unitcode == null ? "" : unitcode);
+                map.put("startdate", startdate == null ? "" : startdate);
+                map.put("enddate", enddate == null ? "" : enddate);
+                map.put("dateflag", dateFlag());
+                return map;
+            }
+        };
+        ReportSupport.enqueue(this, request);
+    }
+
+    private void bindRows(JSONArray rows) {
+        tenantList.clear();
+        for (int i = 0; i < rows.length(); i++) {
+            JSONObject json = rows.optJSONObject(i);
+            if (json == null) {
+                continue;
+            }
+            HashMap<String, String> item = new HashMap<>();
+            item.put("#", String.valueOf(i + 1));
+            item.put("id_no", ReportSupport.displayOrDash(json.optString("tenant_identifier")));
+            item.put("names", json.optString("tenant_name"));
+            item.put("tel", ReportSupport.displayOrDash(json.optString("tenant_tel")));
+            item.put("property", ReportSupport.displayOrDash(json.optString("property_name")));
+            item.put("unit", ReportSupport.displayOrDash(ReportSupport.opt(json, "unit_name", "unit_code")));
+            item.put("vehicle", ReportSupport.displayOrDash(json.optString("vehicle_regno")));
+            item.put("from", ReportSupport.displayOrDash(json.optString("date_from")));
+            item.put("to", ReportSupport.displayOrDash(json.optString("date_to")));
+            item.put("rent", ReportSupport.money(json.optString("rent_payable")));
+            item.put("deposit", ReportSupport.money(json.optString("rent_deposit_amount")));
+            item.put("status", ReportSupport.displayOrDash(json.optString("active")));
+            tenantList.add(item);
+        }
+        table.setRows(tenantList);
+    }
+
+    private void handleAction(String action) {
+        if (!ReportSupport.filled(pcode) && !ReportSupport.filled(unitcode) && !ReportSupport.filled(tenantId())) {
+            UiNotifier.snack(this, "Select a property, unit, or tenant first.");
+            return;
+        }
+        String reportype = "bypropertycode";
+        if (ReportSupport.filled(tenantId())) {
+            reportype = "bytenantid";
+        } else if (ReportSupport.filled(unitcode)) {
+            reportype = "bypropertyunits";
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("pcode", pcode == null ? "" : pcode);
+        params.put("unitcode", unitcode == null ? "" : unitcode);
+        params.put("startdate", startdate == null ? "" : startdate);
+        params.put("enddate", enddate == null ? "" : enddate);
+        params.put("tenantid", tenantId());
+        params.put("reportype", reportype);
+        ReportSupport.handlePdfAction(
+                this,
+                action,
+                ReportSupport.withQuery(conf.getSERVERURL() + "printTenancyHistory.php", params),
+                "tenancy.pdf"
+        );
+    }
 }

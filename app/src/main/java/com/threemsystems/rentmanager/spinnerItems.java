@@ -29,7 +29,7 @@ public String toString() {
 public boolean equals(Object obj) {
     if(obj instanceof spinnerItems){
         spinnerItems c = (spinnerItems )obj;
-        if(c.getName().equals(name) && c.getId()==id ) return true;
+    if (c.getName() != null && c.getName().equals(name) && c.getId() != null && c.getId().equals(id)) return true;
     }
 
     return false;

@@ -2,146 +2,149 @@ package com.threemsystems.rentmanager;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.os.Handler;
-import android.os.Looper;
-import com.vishnusivadas.advanced_httpurlconnection.PutData;
-
-
-
 
 public class ResetPassword extends AppCompatActivity {
     private EditText username, currPassword, NewPassword, ConfrmNewPassword;
     private Button cancel, ChangePassword;
-	Config conf = com.threemsystems.rentmanager.Config.getInstance();
-	 private ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
+        ScreenNav.bind(this);
+
         username = findViewById(R.id.etUser);
         currPassword = findViewById(R.id.etcurrPass);
         NewPassword = findViewById(R.id.etnewPass);
         ConfrmNewPassword = findViewById(R.id.etconfrmnp);
         cancel = findViewById(R.id.btcancel);
         ChangePassword = findViewById(R.id.btchangePassword);
-		 progressBar = findViewById(R.id.progressBar);
-		 cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ResetPassword.this);
-                builder.setMessage("Are you sure you want to cancel?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
+        progressBar = findViewById(R.id.progressBar);
+
+        String sessionUser = SessionManager.get(this).getUsername();
+        if (ReportSupport.filled(sessionUser)) {
+            username.setText(sessionUser);
+            username.setEnabled(false);
+            username.setFocusable(false);
+        }
+
+        cancel.setOnClickListener(v -> {
+            wipeSecrets();
+            finish();
         });
-		 ChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {	
-				
-				  AlertDialog.Builder builder = new AlertDialog.Builder(ResetPassword.this);
-                builder.setMessage("Are you sure you want to change your password?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-               public void onClick(DialogInterface dialog, int id) {
-               String user_name, cur_password, new_password, confirm_password;				
-                user_name = String.valueOf(username.getText());
-                cur_password = String.valueOf(currPassword.getText());
-                new_password = String.valueOf(NewPassword.getText());
-                confirm_password = String.valueOf(ConfrmNewPassword.getText());                
-				
-    if(!user_name.equals("") && !cur_password.equals("") && !new_password.equals("") && !confirm_password.equals("")) {
+        ChangePassword.setOnClickListener(v -> attemptChange());
+    }
 
-	if(new_password.equals(confirm_password)){
-                    progressBar.setVisibility(View.VISIBLE);
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            String[] field = new String[4];
-                            field[0] = "usn";
-                            field[1] = "cpswd";
-                            field[2] = "npswd";
-                            field[3] = "confirm_password";                                                  
-                            String[] data = new String[6];
-                            data[0] = user_name;
-                            data[1] = cur_password;
-                            data[2] = new_password;
-                            data[3] = confirm_password;                                                
-		String url = conf.getSERVERURL()+"save_changePassword.php";
-       // PutData putData = new PutData("http://3modernsystems.com/threepmobileserver/save_new_owner.php", "POST", field, data);
-		 PutData putData = new PutData(url, "POST", field, data);
-                            if (putData.startPut()) {
-                                if (putData.onComplete()) {
-                                    progressBar.setVisibility(View.GONE);
-                                    String result = putData.getResult();
-                                    JSONObject jObject; String flag="",message="";
-                                    try{
-                                        jObject = new JSONObject(result);
-                                        flag = jObject.getString("success");
-                                        message = jObject.getString("message");
+    private void attemptChange() {
+        String userName = textOf(username).trim();
+        String current = textOf(currPassword);
+        String next = textOf(NewPassword);
+        String confirm = textOf(ConfrmNewPassword);
 
-                                    }catch(JSONException e){
-                                        e.printStackTrace();
-                                        System.out.println("JSON Exception");
-                                    }	  
-        if (flag.equals("true")) {                                        
-					Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-					startActivity(intent);
-					finish();
-					Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                    }
-                                    else {
-                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            }
+        if (!ReportSupport.filled(userName, current, next, confirm)) {
+            UiNotifier.snack(this, "All fields are required.");
+            return;
+        }
+        if (!next.equals(confirm)) {
+            UiNotifier.snack(this, "The new passwords do not match.");
+            ConfrmNewPassword.requestFocus();
+            return;
+        }
+        if (next.equals(current)) {
+            UiNotifier.snack(this, "Choose a password that is different from the current one.");
+            NewPassword.requestFocus();
+            return;
+        }
+
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to change your password?")
+                .setPositiveButton("Yes", (dialog, id) -> submitChange(userName, current, next, confirm))
+                .setNegativeButton("No", (dialog, id) -> dialog.dismiss())
+                .show();
+    }
+
+    private void submitChange(String userName, String current, String next, String confirm) {
+        setBusy(true);
+        String[] field = {"usn", "cpswd", "npswd", "confirm_password"};
+        String[] data = {userName, current, next, confirm};
+        ApiClient.get().post(ResetPassword.this, Config.getInstance().getSERVERURL() + "save_changePassword.php", field, data,
+                new ApiClient.Callback() {
+                    @Override
+                    public void onSuccess(String result) {
+                        setBusy(false);
+                        if (UiNotifier.jsonSuccess(result)) {
+                            goToLogin(userName, UiNotifier.userMessage(result, "Password changed. Please log in."));
+                            return;
                         }
-                    });
-					}else{
-						//the entered new passwords are not matching
-				Toast.makeText(getApplicationContext(), "The entered new passwords are not matching", Toast.LENGTH_SHORT).show();
-					}
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "All Fields are Required", Toast.LENGTH_SHORT).show();
-                }
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-                
-            }
-        });
+                        wipeSecrets();
+                        UiNotifier.snack(ResetPassword.this, UiNotifier.userMessage(result, "Could not change password."));
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        setBusy(false);
+                        UiNotifier.snack(ResetPassword.this, message);
+                    }
+                });
+    }
+
+    private void goToLogin(String userName, String message) {
+        wipeSecrets();
+        SessionManager.get(this).clear();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(LoginActivity.EXTRA_USERNAME, userName);
+        intent.putExtra(LoginActivity.EXTRA_NOTICE, message);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        wipeSecrets();
+        super.onSaveInstanceState(outState);
+    }
+
+    private void setBusy(boolean busy) {
+        progressBar.setVisibility(busy ? android.view.View.VISIBLE : android.view.View.GONE);
+        ChangePassword.setEnabled(!busy);
+        cancel.setEnabled(!busy);
+    }
+
+    private void wipeSecrets() {
+        if (currPassword != null) {
+            currPassword.setText("");
+        }
+        if (NewPassword != null) {
+            NewPassword.setText("");
+        }
+        if (ConfrmNewPassword != null) {
+            ConfrmNewPassword.setText("");
+        }
+    }
+
+    private static String textOf(EditText field) {
+        return field.getText() == null ? "" : String.valueOf(field.getText());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isFinishing()) {
+            wipeSecrets();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        wipeSecrets();
+        super.onDestroy();
     }
 }
-
-/////////////
-			

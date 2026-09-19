@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padding">32dp</dimen>
+    <dimen name="hero_padding">28dp</dimen>
+    <dimen name="tile_height">148dp</dimen>
+    <dimen name="tile_gap">10dp</dimen>
+    <dimen name="form_max_width">640dp</dimen>
+    <dimen name="hub_max_width">1080dp</dimen>
+    <dimen name="filter_card_margin">16dp</dimen>
+    <dimen name="filter_card_padding">16dp</dimen>
+    <dimen name="report_min_width">480dp</dimen>
+    <dimen name="login_card_margin">48dp</dimen>
+</resources>

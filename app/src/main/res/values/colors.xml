@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="teal_800">#00695C</color>
+    <color name="teal_light">#4DB6AC</color>
+    <color name="teal_mid">#009688</color>
+    <color name="teal_wash">#E6F4F3</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#00FF00</color>
 
-    <color name="colorPrimary">#125688</color>
-    <color name="colorPrimaryDark">#125688</color>
+    <color name="colorPrimary">#018786</color>
+    <color name="colorPrimaryDark">#00695C</color>
     <color name="textColorPrimary">#FFFFFF</color>
-    <color name="windowBackground">#FFFFFF</color>
-    <color name="navigationBarColor">#000000</color>
-    <color name="colorAccent">#c8e8ff</color>
-    <color name="light_blue_400">#FF29B6F6</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="gray_400">#FFBDBDBD</color>
-    <color name="gray_600">#FF757575</color>
+    <color name="windowBackground">#F2F6F6</color>
+    <color name="navigationBarColor">#00695C</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="page_background">#F2F6F6</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_muted">#ECF3F3</color>
+    <color name="text_primary">#12201F</color>
+    <color name="text_secondary">#5B6B6A</color>
+    <color name="divider">#D7E3E2</color>
+    <color name="destructive">#B3261E</color>
+    <color name="success">#1B7A4A</color>
+    <color name="gray">#888888</color>
+    <color name="dark_gray">#5B6B6A</color>
+    <color name="light_gray">#D7E3E2</color>
+    <color name="hero_on_primary">#B3FFFFFF</color>
+    <color name="hero_on_primary_strong">#CCFFFFFF</color>
+    <color name="table_header_text">#00695C</color>
 </resources>

@@ -1,154 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/page_background"
     android:orientation="vertical"
     tools:context=".Holder.Statements">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/bg_toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" >
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
         <TextView
             android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:text="Statements"/>
+            style="@style/Widget.PManager.ToolbarTitle"
+            android:text="Rent statement" />
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp">
-        <HorizontalScrollView
+        android:layout_margin="@dimen/filter_card_margin"
+        app:cardBackgroundColor="@color/surface"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/teal_wash"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/filter_card_padding">
+
+            <TextView
+                style="@style/Widget.PManager.FilterLabel"
+                android:text="Choice" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_choice_track"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/btnChoiceStatements"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_choice_segment"
+                    android:gravity="center"
+                    android:text="Statements"
+                    android:textColor="@color/choice_segment_text"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/btnChoiceDebts"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_choice_segment"
+                    android:gravity="center"
+                    android:text="Debt Summary"
+                    android:textColor="@color/choice_segment_text"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
-				<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Property:"/>
-                <Spinner
-                    android:id="@+id/spnprty"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Unit:"/>
 
-                <Spinner
-                    android:id="@+id/spnunt"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"/>               
-			   <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Tenant:"/>
-                <Spinner
-                    android:id="@+id/spntt"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Start:"/>
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:text="Property" />
 
-                <EditText
-                    android:id="@+id/datestt"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="End:"/>
+                    <Spinner
+                        android:id="@+id/spnprty"
+                        style="@style/Widget.PManager.FilterSpinner" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/datend"
-                    android:layout_width="110dp"
+                <LinearLayout
+                    android:id="@+id/tenantFilter"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Type"/>
-                <Spinner
-                    android:id="@+id/spntype"
-                    android:layout_width="195dp"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Action:"/>
-                <Spinner
-                    android:id="@+id/spnacton"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:text="Tenant" />
+
+                    <Spinner
+                        android:id="@+id/spntt"
+                        style="@style/Widget.PManager.FilterSpinner" />
+                </LinearLayout>
             </LinearLayout>
-        </HorizontalScrollView>
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-		
-		<TableLayout
-		  android:id="@+id/ptable"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:shrinkColumns="*"  android:stretchColumns="*" android:background="#000000">
-     <TableRow
-                            android:id="@+id/tableRow1"
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent">
-                            <TextView
-                                android:id="@+id/sDate" android:text="DATE"
-                                android:layout_weight="1" 
-                                android:textColor="#00FFFF" 
-                                 android:gravity="left"/>
-								
-                          
-                                <TextView
-                                android:id="@+id/stDedc" android:text="DESC."
-                                android:layout_weight="1" 
-                                android:textColor="#00FFFF" 
-                                 android:gravity="center"/>                          
-                             
-								<TextView
-                                android:id="@+id/stAmount" android:text="AMOUNT(Ksh.)"
-                                android:layout_weight="1" 
-                                android:textColor="#00FFFF" 
-                                android:gravity="center"/>
-								
-								<TextView
-                                android:id="@+id/stBalance" android:text="BALANCE(Ksh.)"
-                                android:layout_weight="1" 
-                                android:textColor="#00FFFF" 
-                                android:gravity="right"/>
-                        </TableRow>
-    <ListView
-        android:id="@android:id/list"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="3dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:text="Select" />
+
+                    <Spinner
+                        android:id="@+id/spntype"
+                        style="@style/Widget.PManager.FilterSpinner" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:text="Action" />
+
+                    <Spinner
+                        android:id="@+id/spnacton"
+                        style="@style/Widget.PManager.FilterSpinner" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:text="Start" />
+
+                    <EditText
+                        android:id="@+id/datestt"
+                        style="@style/Widget.PManager.FilterField"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        android:hint="From" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Widget.PManager.FilterLabel"
+                        android:text="End" />
+
+                    <EditText
+                        android:id="@+id/datend"
+                        style="@style/Widget.PManager.FilterField"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        android:hint="To" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtScope"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/teal_800"
+                android:textSize="12sp"
+                android:text="Choose Statements or Debt Summary." />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnJournal"
+        style="@style/Widget.PManager.Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-    </ListView>
-     </TableLayout>
+        android:layout_marginStart="@dimen/filter_card_margin"
+        android:layout_marginEnd="@dimen/filter_card_margin"
+        android:layout_marginBottom="4dp"
+        android:minHeight="44dp"
+        android:text="Journal Entry" />
 
-    </RelativeLayout>
-
-
+    <include
+        layout="@layout/include_report_table"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>

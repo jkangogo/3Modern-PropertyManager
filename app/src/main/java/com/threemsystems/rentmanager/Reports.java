@@ -1,92 +1,38 @@
 package com.threemsystems.rentmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.threemsystems.rentmanager.Holder.Expenditure;
+import com.threemsystems.rentmanager.Holder.Invoices;
+import com.threemsystems.rentmanager.Holder.Payments;
+import com.threemsystems.rentmanager.Holder.Property;
+import com.threemsystems.rentmanager.Holder.Statements;
+import com.threemsystems.rentmanager.Holder.Tenancy;
+import com.threemsystems.rentmanager.Holder.Units;
 
 public class Reports extends AppCompatActivity {
-    Button Property, Units, Tenancy, Payments, Invoices, Statements, Expenditure, Back;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
+        ScreenNav.bind(this);
 
-        Property = findViewById(R.id.btnProperty);
-        Units = findViewById(R.id.btnUnits);
-        Tenancy = findViewById(R.id.btnTenancy);
-        Payments = findViewById(R.id.btnPayments);
-        Invoices = findViewById(R.id.btnInvoices);
-        Statements = findViewById(R.id.btnStatements);
-        Expenditure = findViewById(R.id.btnexpend);
-        Back= findViewById(R.id.btnback);
-
-        Property.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), com.threemsystems.rentmanager.Holder.Property.class);
-                startActivity(i);
-            }
-        });
-
-        Units.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), com.threemsystems.rentmanager.Holder.Units.class);
-                startActivity(i);
-            }
-        });
-
-        Tenancy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), com.threemsystems.rentmanager.Holder.Tenancy.class);
-                startActivity(i);
-            }
-        });
-
-        Payments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), com.threemsystems.rentmanager.Holder.Payments.class);
-                startActivity(i);
-            }
-        });
-
-        Invoices.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), com.threemsystems.rentmanager.Holder.Invoices.class);
-                startActivity(i);
-            }
-        });
-
-        Statements.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), com.threemsystems.rentmanager.Holder.Statements.class);
-                startActivity(i);
-            }
-        });
-
-        Expenditure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), com.threemsystems.rentmanager.Holder.Expenditure.class);
-                startActivity(i);
-            }
-        });
-
-        Back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+        findViewById(R.id.btnProperty).setOnClickListener(v ->
+                startActivity(new Intent(this, Property.class)));
+        findViewById(R.id.btnUnits).setOnClickListener(v ->
+                startActivity(new Intent(this, Units.class)));
+        findViewById(R.id.btnTenancy).setOnClickListener(v ->
+                startActivity(new Intent(this, Tenancy.class)));
+        findViewById(R.id.btnPayments).setOnClickListener(v ->
+                startActivity(new Intent(this, Payments.class)));
+        findViewById(R.id.btnInvoices).setOnClickListener(v ->
+                startActivity(new Intent(this, Invoices.class)));
+        findViewById(R.id.btnStatements).setOnClickListener(v ->
+                startActivity(new Intent(this, Statements.class)));
+        findViewById(R.id.btnexpend).setOnClickListener(v ->
+                startActivity(new Intent(this, Expenditure.class)));
     }
 }

@@ -1,137 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/page_background"
+    android:orientation="vertical"
+    tools:context=".Reports">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/bg_toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" >
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
         <TextView
             android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:text="Reports"/>
+            style="@style/Widget.PManager.ToolbarTitle"
+            android:text="Reports" />
     </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/toolbar_top">
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <com.threemsystems.rentmanager.BoundedWidthLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boundedMaxWidth="@dimen/hub_max_width">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/screen_padding">
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_hero"
+                    android:orientation="vertical"
+                    android:padding="@dimen/hero_padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.12"
+                        android:text="INSIGHTS"
+                        android:textAllCaps="true"
+                        android:textColor="@color/hero_on_primary"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Portfolio reports"
+                        android:textColor="@color/white"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Filter occupancy, collections, and expenses, then export a PDF."
+                        android:textColor="@color/hero_on_primary_strong"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Widget.PManager.SectionTitle"
+                    android:layout_marginTop="16dp"
+                    android:text="Portfolio" />
+
+                <TextView
+                    style="@style/Widget.PManager.SectionHint"
+                    android:text="Buildings and units" />
+
+                <androidx.gridlayout.widget.GridLayout
                     android:id="@+id/btnGrid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    app:alignmentMode="alignBounds"
+                    app:columnCount="@integer/hub_columns"
+                    app:orientation="horizontal"
+                    app:useDefaultMargins="false">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnProperty"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:padding="10dp"
-                        android:text="PROPERTY" />
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Property"
+                        app:icon="@drawable/ic_tile_city"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnUnits"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:padding="10dp"
-                        android:text="UNITS" />
-                </LinearLayout>
-                <LinearLayout
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Units"
+                        app:icon="@drawable/ic_tile_units"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+                </androidx.gridlayout.widget.GridLayout>
+
+                <TextView
+                    style="@style/Widget.PManager.SectionTitle"
+                    android:text="Occupancy" />
+
+                <TextView
+                    style="@style/Widget.PManager.SectionHint"
+                    android:text="Tenants and invoices" />
+
+                <androidx.gridlayout.widget.GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Button
+                    app:alignmentMode="alignBounds"
+                    app:columnCount="@integer/hub_columns"
+                    app:orientation="horizontal"
+                    app:useDefaultMargins="false">
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnTenancy"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:padding="10dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:text="TENANCY" />
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Tenancy"
+                        app:icon="@drawable/ic_tile_tenancy"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnInvoices"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:padding="10dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:text="INVOICES" />
-                </LinearLayout>
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Invoices"
+                        app:icon="@drawable/ic_tile_invoice"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+                </androidx.gridlayout.widget.GridLayout>
 
-                <LinearLayout
+                <TextView
+                    style="@style/Widget.PManager.SectionTitle"
+                    android:text="Collections" />
+
+                <TextView
+                    style="@style/Widget.PManager.SectionHint"
+                    android:text="Receipts and balances" />
+
+                <androidx.gridlayout.widget.GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Button
+                    app:alignmentMode="alignBounds"
+                    app:columnCount="@integer/hub_columns"
+                    app:orientation="horizontal"
+                    app:useDefaultMargins="false">
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPayments"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:padding="10dp"
-                        android:text="PAYMENTS" />
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Payments"
+                        app:icon="@drawable/ic_tile_payment"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnStatements"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:padding="10dp"
-                        android:text="STATEMENTS" />
-                </LinearLayout>
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Rent statement"
+                        app:icon="@drawable/ic_tile_statement"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+                </androidx.gridlayout.widget.GridLayout>
 
-                <LinearLayout
+                <TextView
+                    style="@style/Widget.PManager.SectionTitle"
+                    android:text="Operations" />
+
+                <TextView
+                    style="@style/Widget.PManager.SectionHint"
+                    android:text="Expenses" />
+
+                <androidx.gridlayout.widget.GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Button
+                    android:layout_marginBottom="16dp"
+                    app:alignmentMode="alignBounds"
+                    app:columnCount="@integer/hub_columns"
+                    app:orientation="horizontal"
+                    app:useDefaultMargins="false">
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnexpend"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:padding="10dp"
-                        android:text="Expenditure" />
-                    <Button
-                        android:id="@+id/btnback"
-                        android:layout_width="195dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/mybutton"
-                        android:padding="10dp"
-                        android:text="Back" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"/>
-
+                        style="@style/Widget.PManager.Tile"
+                        android:text="Expenditure"
+                        app:icon="@drawable/ic_tile_expenditure"
+                        app:layout_columnWeight="1"
+                        app:layout_gravity="fill_horizontal" />
+                </androidx.gridlayout.widget.GridLayout>
             </LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-</RelativeLayout>
+        </com.threemsystems.rentmanager.BoundedWidthLayout>
+    </ScrollView>
+</LinearLayout>
